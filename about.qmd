@@ -1,0 +1,5 @@
+---
+title: "About"
+---
+
+This documentation is organized as a record and reference for the 2023 Build of Smear Lab's Freely Moving Olfactory Navigation behavioral rig. All materials were produced by Nate Gonzales-Hess for the Smear Lab in fulfillment of his Supporting Area Project in the University of Oregon Psychology PhD Program.

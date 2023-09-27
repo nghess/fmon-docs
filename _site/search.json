@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "fmon-docs",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "This documentation is organized as a record and reference for the 2023 Build of Smear Lab’s Freely Moving Olfactory Navigation behavioral rig. All materials were produced by Nate Gonzales-Hess for the Smear Lab in fulfillment of his Supporting Area Project in the University of Oregon Psychology PhD Program."
+  },
+  {
+    "objectID": "gui.html",
+    "href": "gui.html",
+    "title": "MATLAB GUI",
+    "section": "",
+    "text": "Instructions for how to use the FMON MATLAB GUI to run experiments"
+  },
+  {
+    "objectID": "bonsai.html",
+    "href": "bonsai.html",
+    "title": "Bonsai",
+    "section": "",
+    "text": "Overview of FMON Bonsai file."
+  },
+  {
+    "objectID": "bpod.html",
+    "href": "bpod.html",
+    "title": "Bpod",
+    "section": "",
+    "text": "Overview of fmon-task Bpod Protocol, and general explanation of Bpod Finite State Machine."
+  },
+  {
+    "objectID": "electronics.html",
+    "href": "electronics.html",
+    "title": "Electronics",
+    "section": "",
+    "text": "Circuit Diagrams and parts list."
+  },
+  {
+    "objectID": "cad.html",
+    "href": "cad.html",
+    "title": "CAD Files",
+    "section": "",
+    "text": "CAD Files of FMON enclosure and lick ports."
+  }
+]
