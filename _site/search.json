@@ -32,7 +32,7 @@
     "href": "bpod.html",
     "title": "Bpod",
     "section": "",
-    "text": "Overview of fmon-task Bpod Protocol, and general explanation of Bpod Finite State Machine."
+    "text": "Overview of fmon-task Bpod Protocol, and general explanation of Bpod Finite State Machine.\nfunction fmon_task\n%% Initialize Bpod\nglobal BpodSystem\nS = BpodSystem.ProtocolSettings; \n\n%Clear Bpod TCP Socket\nBpodSystem.BonsaiSocket = [];\n\n% Run Bonsai connect Python Script\n[~,~] = system('start C:\\ProgramData\\Anaconda3\\python.exe D:\\fmon-bpod\\connect_gui.py');\n\n% Connect Bpod to Bonsai\nBpodSystem.BonsaiSocket = TCPCom(11235);"
   },
   {
     "objectID": "electronics.html",

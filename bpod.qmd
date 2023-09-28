@@ -3,3 +3,19 @@ title: "Bpod"
 ---
 
 Overview of fmon-task Bpod Protocol, and general explanation of Bpod Finite State Machine.
+
+```matlab
+function fmon_task
+%% Initialize Bpod
+global BpodSystem
+S = BpodSystem.ProtocolSettings; 
+
+%Clear Bpod TCP Socket
+BpodSystem.BonsaiSocket = [];
+
+% Run Bonsai connect Python Script
+[~,~] = system('start C:\ProgramData\Anaconda3\python.exe D:\fmon-bpod\connect_gui.py');
+
+% Connect Bpod to Bonsai
+BpodSystem.BonsaiSocket = TCPCom(11235);
+```
