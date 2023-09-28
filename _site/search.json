@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "fmon-docs",
+    "title": "Freely Moving Olfactory Navigation",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "Welcome to the documentation for Smear Lab’s Freely Moving Olfactory Navigation (FMON) behavioral rig.\nThis documentation includes a detailed explanation of the rig and the hardware and code that run it.\nThe rig’s hardware is controlled by a Bpod state machine running in MATLAB and receiving realtime input from Bonsai. All data related to trial state is recorded by Bpod, while all analogue lectrical signals (e.g. sniff signal) are recorded by Bonsai.\nThe rig can be run either directly from the Bpod Console, or using a custom GUI that was built with specific experiments in mind."
   },
   {
     "objectID": "about.html",
@@ -25,7 +25,7 @@
     "href": "bonsai.html",
     "title": "Bonsai",
     "section": "",
-    "text": "Overview of FMON Bonsai file."
+    "text": "Overview of FMON Bonsai file.\nDo a diagram showing what each branch of the tree does. Maybe give a brief code sample of how the IPython sinks work.\nShow how DAQ outputs work."
   },
   {
     "objectID": "bpod.html",
@@ -46,6 +46,6 @@
     "href": "cad.html",
     "title": "CAD Files",
     "section": "",
-    "text": "CAD Files of FMON enclosure and lick ports."
+    "text": "CAD Files of FMON enclosure and lick ports.\nMaybe integrate a 3d model viewer if easy."
   }
 ]

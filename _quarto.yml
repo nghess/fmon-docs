@@ -13,8 +13,8 @@ website:
         text: Bonsai
       - href: bpod.qmd
         text: Bpod
-      - href: electronics.qmd
-        text: Electronics
+      - href: hardware.qmd
+        text: Hardware
       - href: cad.qmd
         text: CAD
       - href: about.qmd

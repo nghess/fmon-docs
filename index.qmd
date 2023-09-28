@@ -1,7 +1,12 @@
 ---
-title: "fmon-docs"
+title: "Freely Moving Olfactory Navigation"
 ---
 
-This is a Quarto website.
+Welcome to the documentation for Smear Lab's Freely Moving Olfactory Navigation (FMON) behavioral rig.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+This documentation includes a detailed explanation of the rig and the hardware and code that run it.
+
+The rig's hardware is controlled by a [Bpod](bpod.qmd) state machine running in MATLAB and receiving realtime input from [Bonsai](bonsai.qmd). All data related to trial state is recorded by Bpod, while all analogue lectrical signals (e.g. sniff signal) are recorded by Bonsai.
+
+The rig can be run either directly from the Bpod Console, or using a custom [GUI](gui.qmd) that was built with specific experiments in mind.
+
