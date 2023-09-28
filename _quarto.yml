@@ -12,7 +12,7 @@ website:
       - href: bonsai.qmd
         text: Bonsai
       - href: bpod.qmd
-        text: Bpod
+        text: Bpod Protocol
       - href: hardware.qmd
         text: Hardware
       - href: cad.qmd
@@ -22,7 +22,7 @@ website:
 
 format:
   html:
-    theme: cosmo
+    theme: Cyborg
     css: styles.css
     toc: true
 
