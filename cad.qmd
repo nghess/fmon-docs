@@ -1,7 +1,0 @@
----
-title: "CAD Files"
----
-
-CAD Files of FMON enclosure and lick ports.
-
-Maybe integrate a 3d model viewer if easy.

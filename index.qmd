@@ -8,3 +8,19 @@ The rig's hardware is controlled by a [Bpod](bpod.qmd) state machine running in 
 
 The rig can be run either directly from the Bpod Console, or using a custom [GUI](gui.qmd) that was built with specific experiments in mind.
 
+```python
+import plotly.io as pio
+pio.renderers.default = "plotly_mimetype+notebook_connected"
+```
+
+```python
+import plotly.express as px
+import plotly.io as pio
+df = px.data.iris()
+fig = px.scatter(df, x="sepal_width", y="sepal_length", 
+                 color="species", 
+                 marginal_y="violin", marginal_x="box", 
+                 trendline="ols", template="simple_white")
+fig.show()
+```
+

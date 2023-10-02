@@ -15,16 +15,23 @@ website:
         text: Bpod Protocol
       - href: hardware.qmd
         text: Hardware
-      - href: cad.qmd
-        text: CAD
+      - href: data.qmd
+        text: Data
       - href: about.qmd
         text: About
+    tools:
+        - icon: github
+          href: https://github.com/nghess/fmon-bpod
 
 format:
   html:
     theme: Cyborg
     css: styles.css
     toc: true
+
+
+jupyter:
+  kernel: python3
 
 
 

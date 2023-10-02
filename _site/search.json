@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "FMON Documentation",
     "section": "",
-    "text": "Welcome to the documentation for Smear Lab’s Freely Moving Olfactory Navigation (FMON) behavioral rig.\nThe rig’s hardware is controlled by a Bpod state machine running in MATLAB and receiving realtime input from Bonsai. All data related to trial state is recorded by Bpod, while all analog electrical signals (e.g. sniff signal) are recorded by Bonsai.\nThe rig can be run either directly from the Bpod Console, or using a custom GUI that was built with specific experiments in mind."
+    "text": "Welcome to the documentation for Smear Lab’s Freely Moving Olfactory Navigation (FMON) behavioral rig.\nThe rig’s hardware is controlled by a Bpod state machine running in MATLAB and receiving realtime input from Bonsai. All data related to trial state is recorded by Bpod, while all analog electrical signals (e.g. sniff signal) are recorded by Bonsai.\nThe rig can be run either directly from the Bpod Console, or using a custom GUI that was built with specific experiments in mind.\nimport plotly.io as pio\npio.renderers.default = \"plotly_mimetype+notebook_connected\"\nimport plotly.express as px\nimport plotly.io as pio\ndf = px.data.iris()\nfig = px.scatter(df, x=\"sepal_width\", y=\"sepal_length\", \n                 color=\"species\", \n                 marginal_y=\"violin\", marginal_x=\"box\", \n                 trendline=\"ols\", template=\"simple_white\")\nfig.show()"
   },
   {
     "objectID": "about.html",
@@ -180,5 +180,12 @@
     "title": "Bpod",
     "section": "End Trial Loop",
     "text": "End Trial Loop\nT = BpodTrialManager;\n    T.startTrial(sma)\n    RawEvents = T.getTrialData;\n    if ~isempty(fieldnames(RawEvents)) % If trial data was returned\n        BpodSystem.Data = AddTrialEvents(BpodSystem.Data,RawEvents); %  Computes trial events from raw data\n        BpodSystem.Data.TrialSettings(currentTrial) = S; % Adds the settings used for the current trial to the Data struct (to be saved after the trial ends)\n        BpodSystem.Data.TrialTypes(currentTrial) = TrialTypes(currentTrial); % Adds the trial type of the current trial to data\n        UpdateOutcomePlot(TrialTypes, BpodSystem.Data);\n        SaveBpodSessionData; % Saves the field BpodSystem.Data to the current data file\n    end\n    HandlePauseCondition; % Checks to see if the protocol is paused. If so, waits until user resumes.\n    if BpodSystem.Status.BeingUsed == 0\n        return\n    end\nend"
+  },
+  {
+    "objectID": "data.html",
+    "href": "data.html",
+    "title": "Data Acquisition",
+    "section": "",
+    "text": "Describe data processing script and file and directory structure."
   }
 ]
