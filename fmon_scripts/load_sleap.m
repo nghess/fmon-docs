@@ -6,6 +6,7 @@ function [tracking] = load_sleap(mouse_id, session)
     filename = "S:/fmon_sleap/predictions/csv/mouse_" + num2str(mouse_id) + "_session_" + num2str(session) + ".analysis.csv";
     
     %% Load sleap CSV
+    % Supressing warning about automatic column name renaming
     warning('off', 'all');
     sleap_csv = readtable(filename);
     warning('on', 'all');

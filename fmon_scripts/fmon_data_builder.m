@@ -1,5 +1,5 @@
 % Set Mouse data to analyze
-mouse_id = 2194;
+mouse_id = 2196;
 session = 11;
 path = "S:/fmon_data/" + num2str(mouse_id) + "/100-0/" + num2str(session) + "/";
 
@@ -19,5 +19,5 @@ FMON_data = process_data(poke_dat, sniff_dat, S);
 FMON_data = horzcat(FMON_data(1:height(SLEAP_data),:), SLEAP_data);
 
 % Write to CSV
-%writetable(FMON_data, path + num2str(mouse_id) + "_" + num2str(session) + ".csv");
+writetable(FMON_data, path + num2str(mouse_id) + "_" + num2str(session) + ".csv");
 
