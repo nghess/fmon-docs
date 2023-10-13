@@ -1,3 +1,6 @@
+function [resampled_FMON_table] = process_data(poke_dat, sniff_dat, S)
+% Process and align FMON data 
+
 %% Build logical vectors from NiDAQ data
 left_poke = poke_dat(1,:) > .25;
 right_poke = poke_dat(2,:) > .25;
@@ -7,6 +10,9 @@ final_vlv = sniff_dat(3,:) > 1;
 % Get number of trials and NiDAQ data vector length
 ntrials = S.session_data.nTrials; % Number of trials in session
 dat_len = length(init_poke);
+
+%% Pull out analog sniff signal
+sniff_signal = sniff_dat(1,:);
 
 %% Align Bpod data and pull out event data
 first_poke_bonsai = find(init_poke == 1, 1, 'first'); % Get the first poke as recorded by Bonsai
@@ -27,14 +33,35 @@ trial_starts = trial_starts + fine_tune; % Adjust trial starts by fine tune offs
 %% Build full-length vector of Init pokes
 
 % Pull out init pokes for each trial
-init_pokes_bpod = zeros(ntrials, 1);
+init_pokes_bpod = zeros(1, ntrials);
 
 for ii = 1:ntrials
     init_pokes_bpod(ii) = S.session_data.RawEvents.Trial{1, ii}.States.WaitForInitPoke(2) * 800;
 end
 
+% Put into continuous time
+init_pokes_bpod = round(trial_starts + init_pokes_bpod);
+
+%% Build full-length vector to record end of drinking event
+
+% Pull out ConfirmPortOut for each trial. Event starts ITI
+drink_out_bpod = zeros(1, ntrials);
+
+% If ConfirmPortOut is not NaN, record time, if ConfirmPortOut is NaN
+% record -dat_len for later removal.
+for ii = 1:ntrials
+    if ~isnan(S.session_data.RawEvents.Trial{1, ii}.States.Drinking(2))
+        drink_out_bpod(ii) = S.session_data.RawEvents.Trial{1, ii}.States.Drinking(2) * 800;
+    else
+        drink_out_bpod(ii) = -dat_len;
+    end
+end
+
 % Create vector of Bpod Init Pokes
-bpod_pokes = round(trial_starts + init_pokes_bpod');
+drink_out_bpod = round(trial_starts + drink_out_bpod);
+% Filter out trials where ITI started after 5 sec drinking timeout 
+% rather than ConfirmPortOut
+drink_out_bpod = drink_out_bpod(drink_out_bpod > 0);
 
 %% Get list of ITIs from Bpod Session Data
 
@@ -45,7 +72,7 @@ iti_ts = cell(ntrials, 1);
 for ii = 1:S.session_data.nTrials
     iti_ts{ii} = S.session_data.RawEvents.Trial{1, ii}.States.ITI([1, 2]);
     iti_ts{ii} = round(iti_ts{ii} * 800 + trial_starts(ii)); % Convert to 800 hz
-    iti_ts{ii}(2) = iti_ts{ii}(2) + 1200; % Add 1.5 second odor reset period to total duration
+    iti_ts{ii}(2) = iti_ts{ii}(2) + 1200; % Add 1.5 second odor reset period to ITI total duration
 end
 
 % Build logical vector of ITI periods
@@ -126,5 +153,51 @@ end
 trial_outcome(1:trial_starts(1)) = trial_outcome_list(1);
 trial_outcome(trial_starts(ntrials):end) = trial_outcome_list(end);
 
+%% Add returned data to table and resample to match video frames
+%trial_num, trial_type, trial_outcome, left_poke,... 
+%right_poke, init_poke, final_vlv, sniff_signal
+
+% Build table
+FMON_table = table(); 
+FMON_table.trial_num = trial_num';
+FMON_table.trial_type = trial_type';
+FMON_table.trial_correct = trial_outcome';
+FMON_table.left_poke = left_poke';
+FMON_table.right_poke = right_poke';
+FMON_table.init_poke = init_poke';
+FMON_table.odor = final_vlv(1:dat_len)';
+FMON_table.iti = iti_logical';
+FMON_table.sniff_signal = sniff_signal(1:dat_len)';
+
+% Resample to match 80hz video
+dataArray = table2array(FMON_table);
+[numRows, numCols] = size(dataArray);
+newNumRows = round(dat_len / 10);  % The number of rows in the resampled data
+
+% Initialize an array to hold the resampled data
+resampledArray = zeros(newNumRows, numCols);
+
+% Define original and new time vectors
+originalTime = linspace(1, numRows, numRows);
+newTime = linspace(1, numRows, newNumRows);
+
+% Resample each column
+for col = 1:numCols
+    resampledArray(:, col) = interp1(originalTime, dataArray(:, col), newTime, 'spline');
+end
+
+% This code resamples rather than interpolates, and produces edge effects
+% dataArray = table2array(FMON_table);
+% [numRows, numCols] = size(dataArray);
+% newNumRows = round(dat_len/10); % The number of rows in the resampled data
+% resampledArray = zeros(newNumRows, numCols);
+% for col = 1:numCols
+%     resampledArray(:, col) = resample(dataArray(:, col), newNumRows, numRows, 'spline');
+% end
+
+% Resampled table
+resampled_FMON_table = array2table(resampledArray, 'VariableNames', FMON_table.Properties.VariableNames);
+resampled_FMON_table(:, 1:7) = round(resampled_FMON_table(:, 1:7));
 
 
+end

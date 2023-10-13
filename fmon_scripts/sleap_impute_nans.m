@@ -1,4 +1,5 @@
 function [data] = sleap_impute_nans(sleap_dat, colname)
+% Impute missing data in SLEAP tracking via interpolation
 
 % Sample data with NaN values
 data = sleap_dat{:, colname};
