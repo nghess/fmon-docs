@@ -59,6 +59,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="styles.css">
@@ -102,8 +105,8 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Hardware</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./cad.html" rel="" target="">
- <span class="menu-text">CAD</span></a>
+    <a class="nav-link" href="./data.html" rel="" target="">
+ <span class="menu-text">Data</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./about.html" rel="" target="">
@@ -111,6 +114,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
 </ul>
             <div class="quarto-navbar-tools ms-auto">
+    <a href="https://github.com/nghess/fmon-bpod" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
 </div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
@@ -143,7 +147,20 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Overview of FMON Bonsai file.</p>
+<p>Bonsai is a visual reactive programming environment that allows users to define and manipulate complex networks of sensors. For the FMON rig, we have a developed a protocol that acquires video from a camera above the arena, then applies custom code to track a mouse and alert the Bpod protocol to its location.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    Camera --&gt; Extract_Head
+    Camera --&gt; Extract_Centroid
+    Camera --&gt; VideoWrite
+</pre>
+</div>
+</div>
+</div>
+</div>
 <p>Do a diagram showing what each branch of the tree does. Maybe give a brief code sample of how the IPython sinks work.</p>
 <p>Show how DAQ outputs work.</p>
 

@@ -2,4 +2,18 @@
 title: "MATLAB GUI"
 ---
 
-Instructions for how to use the FMON MATLAB GUI to run experiments
+FMON-GUI is an app built using the MATLAB App Designer. The purpose of the app is to give researchers a code-free way to customize and run Bpod protocols. It is currently only set up for 100-0 and FMON-Trainer protocols.
+
+The GUI has three panes: H2O, Session Info, and Run Protocol.
+
+* H2O
+    + Water calibration pane. Allows calibration of water reward.
+
+* Session Info
+    + Experimenter, mouse and session information.
+
+* Run Protocol
+    + Once session info is filled in, protocol is ready to run.
+
+
+

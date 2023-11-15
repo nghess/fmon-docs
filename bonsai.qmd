@@ -2,7 +2,14 @@
 title: "Bonsai"
 ---
 
-Overview of FMON Bonsai file.
+Bonsai is a visual reactive programming environment that allows users to define and manipulate complex networks of sensors. For the FMON rig, we have a developed a protocol that acquires video from a camera above the arena, then applies custom code to track a mouse and alert the Bpod protocol to its location.
+
+```{mermaid}
+graph TD
+    Camera --> Extract_Head
+    Camera --> Extract_Centroid
+    Camera --> VideoWrite
+```
 
 Do a diagram showing what each branch of the tree does. Maybe give a brief code sample of how the IPython sinks work. 
 

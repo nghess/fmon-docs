@@ -139,8 +139,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Hardware</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./cad.html" rel="" target="">
- <span class="menu-text">CAD</span></a>
+    <a class="nav-link" href="./data.html" rel="" target="">
+ <span class="menu-text">Data</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./about.html" rel="" target="">
@@ -164,7 +164,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#state-machine-flow" id="toc-state-machine-flow" class="nav-link active" data-scroll-target="#state-machine-flow">State Machine Flow</a></li>
-  <li><a href="#initialize" id="toc-initialize" class="nav-link" data-scroll-target="#initialize">Initialize Bpod</a></li>
+  <li><a href="#matlab-code" id="toc-matlab-code" class="nav-link" data-scroll-target="#matlab-code">MATLAB Code</a>
+  <ul class="collapse">
+  <li><a href="#initialize-bpod-and-start-bonsai" id="toc-initialize-bpod-and-start-bonsai" class="nav-link" data-scroll-target="#initialize-bpod-and-start-bonsai">Initialize Bpod and Start Bonsai</a></li>
   <li><a href="#session_timer" id="toc-session_timer" class="nav-link" data-scroll-target="#session_timer">Session Timer</a></li>
   <li><a href="#reward_timings" id="toc-reward_timings" class="nav-link" data-scroll-target="#reward_timings">Set up Reward Timings</a></li>
   <li><a href="#generate_trials" id="toc-generate_trials" class="nav-link" data-scroll-target="#generate_trials">Generate Trials</a></li>
@@ -174,6 +176,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#end_loop" id="toc-end_loop" class="nav-link" data-scroll-target="#end_loop">End Trial Loop</a></li>
   <li><a href="#update_plot" id="toc-update_plot" class="nav-link" data-scroll-target="#update_plot">Update Outcome Plot</a></li>
   <li><a href="#timeup" id="toc-timeup" class="nav-link" data-scroll-target="#timeup">timeUp Function</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -197,8 +200,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>This page includes all code used in the fmon_task.m protocol, along with a graph describing the flow of the Bpod finite state machine. You may click a node in the the graph to be taken to the relevant code block.</p>
-<p>The protocol is designed to be run in conjunction with <a href="./bonsai.html">Bonsai</a>, which uses realtime video tracking to provide SoftCodes to Bpod. SoftCode1 indicates that the mouse has crossed the decision line on the left side, Softcode3 indicates that the mouse has crossed on the right, and SoftCode2 indicates that the mouse has not yet crossed the decision line.</p>
+<p>This page includes all code used in the fmon_task.m Bpod protocol for the 100-0 task, along with a graph describing the flow of the Bpod state machine.</p>
+<p>The protocol is designed to be run in conjunction with <a href="./bonsai.html">Bonsai</a>, which uses realtime video tracking to provide SoftCodes to Bpod. SoftCode1 indicates that the mouse has crossed the choice boundary on the left side, Softcode3 indicates that the mouse has crossed on the right, and SoftCode2 indicates that the mouse has not yet crossed the choice boundary.</p>
 <section id="state-machine-flow" class="level3">
 <h3 class="anchored" data-anchor-id="state-machine-flow">State Machine Flow</h3>
 <div class="cell">
@@ -234,8 +237,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="initialize" class="level3">
-<h3 class="anchored" data-anchor-id="initialize">Initialize Bpod</h3>
+<section id="matlab-code" class="level1">
+<h1>MATLAB Code</h1>
+<section id="initialize-bpod-and-start-bonsai" class="level3">
+<h3 class="anchored" data-anchor-id="initialize-bpod-and-start-bonsai">Initialize Bpod and Start Bonsai</h3>
+<p>Begins defining the Bpod protocol and executes an external Python script to start Bonsai.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">fmon_task</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">%% Initialize Bpod</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">global</span> <span class="va">BpodSystem</span></span>
@@ -252,6 +258,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="session_timer" class="level3">
 <h3 class="anchored" data-anchor-id="session_timer">Session Timer</h3>
+<p>MATLAB timer. Pulls from the “Session Length” field in “Session Info” tab of <a href="./gui.html">FMON-GUI</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">%% Set Up Session Timer</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">% Get duration from GUI, or use default of 40 minutes.</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> <span class="va">evalin</span>(<span class="ss">'base'</span><span class="op">,</span> <span class="ss">'exist(''session_duration'', ''var'')'</span>)</span>
@@ -493,6 +500,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="update_plot" class="level3">
 <h3 class="anchored" data-anchor-id="update_plot">Update Outcome Plot</h3>
+<p>This function updates the trial outcome plot while the session is running.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">UpdateOutcomePlot</span>(<span class="va">TrialTypes</span><span class="op">,</span> <span class="va">Data</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">global</span> <span class="va">BpodSystem</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">Outcomes</span> <span class="op">=</span> <span class="va">zeros</span>(<span class="fl">1</span><span class="op">,</span><span class="va">Data</span>.<span class="va">nTrials</span>)<span class="op">;</span></span>
@@ -507,6 +515,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="timeup" class="level3">
 <h3 class="anchored" data-anchor-id="timeup">timeUp Function</h3>
+<p>When session duration expires, the timeUp function is executed. This function stops the Bpod protocol, stops Bonsai, then runs a <a href="./data.html">script</a> to summarize and save the session’s data.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">%% Execute when time is up:</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">timeUp</span>(<span class="va">obj</span><span class="op">,</span> <span class="va">event</span><span class="op">,</span> <span class="va">duration</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">disp</span>(<span class="va">num2str</span>(<span class="va">duration</span>) <span class="op">+</span> <span class="st">" minutes have elapsed! The session has ended."</span>)<span class="op">;</span>  <span class="co">% Print to console, maybe make this an alert</span></span>
@@ -520,6 +529,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="va">run</span>(<span class="ss">'D:\fmon-bpod\fmon_data_output.m'</span>)<span class="op">;</span> <span class="co">% Run data processing script</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

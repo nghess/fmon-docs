@@ -122,7 +122,13 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#saved-data" id="toc-saved-data" class="nav-link active" data-scroll-target="#saved-data">Saved Data</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -144,9 +150,41 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Describe data processing script and file and directory structure.</p>
+<p>At the end of each session, the <a href="./bpod.html#timeup">timeUp()</a> function stops Bpod and Bonsai, then executes <a href="https://github.com/nghess/fmon-bpod/blob/main/fmon_data_output.m">fmon_data_output.m</a>, a MATLAB script that saves and summarizes the recently acquired data.</p>
+<p>The data output script handles copying and saving Bpod session data, NiDAQ data, and video files. Additionally, the script creates a short summary of session information and mouse performance, then saves and displays them as a text file.</p>
+<p>These data are all saved in the appropriate directory. Directories are organized by mouse ID, session type, and session number.</p>
+<section id="saved-data" class="level2">
+<h2 class="anchored" data-anchor-id="saved-data">Saved Data</h2>
+<p>In each session folder you will find:</p>
+<ul>
+<li>BpodSessionData.mat
+<ul>
+<li>Data recorded by Bpod and stored as a MATLAB struct. Includes detailed timing data for state changes and trial events.</li>
+</ul></li>
+<li>NiDAQ_poke.dat
+<ul>
+<li>Binary data file containing voltages for left, (ch1) right, (ch2) and initiation reward (ch3) ports.</li>
+</ul></li>
+<li>NiDAQ_sniff.dat
+<ul>
+<li>Binary data file containing voltages from thermistor (ch1) camera TTL trigger (ch2) and left (ch3) and right (ch4) final valves.</li>
+</ul></li>
+<li>notes.txt
+<ul>
+<li>Summary file generated at the end of each session. Contains session information, mouse performance, and (optional) experimenter notes.</li>
+</ul></li>
+<li>rawvideo.txt
+<ul>
+<li>Bonsai timestamps of for each video frame captured.</li>
+</ul></li>
+<li>rawvideo202x-xx-xxTxx_xx_xx.avi
+<ul>
+<li>Raw video file captured by Bonsai.</li>
+</ul></li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

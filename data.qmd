@@ -2,4 +2,25 @@
 title: "Data Acquisition"
 ---
 
-Describe data processing script and file and directory structure.
+At the end of each session, the [timeUp()](bpod.qmd#timeup) function stops Bpod and Bonsai, then executes [fmon_data_output.m](https://github.com/nghess/fmon-bpod/blob/main/fmon_data_output.m), a MATLAB script that saves and summarizes the recently acquired data.
+
+The data output script handles copying and saving Bpod session data, NiDAQ data, and video files. Additionally, the script creates a short summary of session information and mouse performance, then saves and displays them as a text file.
+
+These data are all saved in the appropriate directory. Directories are organized by mouse ID, session type, and session number.
+
+## Saved Data
+In each session folder you will find:
+
+* BpodSessionData.mat
+    + Data recorded by Bpod and stored as a MATLAB struct. Includes detailed timing data for state changes and trial events.
+* NiDAQ_poke.dat
+    + Binary data file containing voltages for left, (ch1) right, (ch2) and initiation reward (ch3) ports.
+* NiDAQ_sniff.dat
+    + Binary data file containing voltages from thermistor (ch1) camera TTL trigger (ch2) and left (ch3) and right (ch4) final valves.
+* notes.txt
+    + Summary file generated at the end of each session. Contains session information, mouse performance, and (optional) experimenter notes.
+* rawvideo.txt
+    + Bonsai timestamps of for each video frame captured.
+* rawvideo202x-xx-xxTxx_xx_xx.avi
+    + Raw video file captured by Bonsai.
+

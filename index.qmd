@@ -6,21 +6,5 @@ Welcome to the documentation for Smear Lab's Freely Moving Olfactory Navigation 
 
 The rig's hardware is controlled by a [Bpod](bpod.qmd) state machine running in MATLAB and receiving realtime input from [Bonsai](bonsai.qmd). All data related to trial state is recorded by Bpod, while all analog electrical signals (e.g. sniff signal) are recorded by Bonsai.
 
-The rig can be run either directly from the Bpod Console, or using a custom [GUI](gui.qmd) that was built with specific experiments in mind.
-
-```python
-import plotly.io as pio
-pio.renderers.default = "plotly_mimetype+notebook_connected"
-```
-
-```python
-import plotly.express as px
-import plotly.io as pio
-df = px.data.iris()
-fig = px.scatter(df, x="sepal_width", y="sepal_length", 
-                 color="species", 
-                 marginal_y="violin", marginal_x="box", 
-                 trendline="ols", template="simple_white")
-fig.show()
-```
+The rig can be run either directly from the Bpod Console, or using a custom [GUI](gui.qmd) that is tailored for researcher assistants to easily run specific FMON experiments.
 

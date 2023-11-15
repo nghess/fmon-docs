@@ -2,9 +2,9 @@
 title: "Bpod Protocol"
 ---
 
-This page includes all code used in the fmon_task.m protocol, along with a graph describing the flow of the Bpod finite state machine. You may click a node in the the graph to be taken to the relevant code block.
+This page includes all code used in the fmon_task.m Bpod protocol for the 100-0 task, along with a graph describing the flow of the Bpod state machine.
 
-The protocol is designed to be run in conjunction with [Bonsai](bonsai.qmd), which uses realtime video tracking to provide SoftCodes to Bpod. SoftCode1 indicates that the mouse has crossed the decision line on the left side, Softcode3 indicates that the mouse has crossed on the right, and SoftCode2 indicates that the mouse has not yet crossed the decision line.
+The protocol is designed to be run in conjunction with [Bonsai](bonsai.qmd), which uses realtime video tracking to provide SoftCodes to Bpod. SoftCode1 indicates that the mouse has crossed the choice boundary on the left side, Softcode3 indicates that the mouse has crossed on the right, and SoftCode2 indicates that the mouse has not yet crossed the choice boundary.
 
 ### State Machine Flow
 ```{mermaid}
@@ -32,8 +32,9 @@ graph TD
     Drinking -->|Tup, Port1Out, Port2Out| ITI
     ITI --> OdorantState
 ```
-
-### Initialize Bpod {#initialize}
+# MATLAB Code
+### Initialize Bpod and Start Bonsai
+Begins defining the Bpod protocol and executes an external Python script to start Bonsai.
 ```matlab
 function fmon_task
 %% Initialize Bpod
@@ -51,6 +52,7 @@ BpodSystem.BonsaiSocket = TCPCom(11235);
 ```
 
 ### Session Timer {#session_timer}
+MATLAB timer. Pulls from the "Session Length" field in "Session Info" tab of [FMON-GUI](gui.qmd).
 ```matlab
 %% Set Up Session Timer
 % Get duration from GUI, or use default of 40 minutes.
@@ -299,6 +301,7 @@ T = BpodTrialManager;
 end
 ```
 ### Update Outcome Plot {#update_plot}
+This function updates the trial outcome plot while the session is running.
 ```matlab
 function UpdateOutcomePlot(TrialTypes, Data)
     global BpodSystem
@@ -314,6 +317,7 @@ function UpdateOutcomePlot(TrialTypes, Data)
 ```
 
 ### timeUp Function {#timeup}
+When session duration expires, the timeUp function is executed. This function stops the Bpod protocol, stops Bonsai, then runs a [script](data.qmd) to summarize and save the session's data.
 ```matlab
 %% Execute when time is up:
 function timeUp(obj, event, duration)
