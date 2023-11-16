@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "FMON Documentation",
     "section": "",
-    "text": "Welcome to the documentation for Smear Lab’s Freely Moving Olfactory Navigation (FMON) behavioral rig.\nThe rig’s hardware is controlled by a Bpod state machine running in MATLAB and receiving realtime input from Bonsai. All data related to trial state is recorded by Bpod, while all analog electrical signals (e.g. sniff signal) are recorded by Bonsai.\nThe rig can be run either directly from the Bpod Console, or using a custom GUI that is tailored for research assistants to easily run specific FMON experiments.\nThis documentation is intended to provide a detailed reference to the FMON Rig and the software that makes it work. You may navigate directly to topics using the navbar at the top of the page, or search for a specific topic or code snippet using the search button at the upper right corner."
+    "text": "Welcome to the documentation for Smear Lab’s Freely Moving Olfactory Navigation (FMON) Rig. This documentation is intended to provide a detailed reference to the FMON Rig and the software that makes it work. You may navigate directly to topics using the navbar at the top of the page, or search for a specific topic or code snippet using the search button at the upper right corner.\nThe rig’s hardware is controlled by a Bpod state machine running in MATLAB and receiving realtime input from Bonsai. All data related to trial state is recorded by Bpod, while all analog electrical signals (e.g. sniff signal) are recorded by Bonsai.\nThe rig can be run either directly from the Bpod Console, or using a custom GUI that is tailored for research assistants to easily run specific FMON experiments. This documentation is fairly detailed, and is not intended for RA training, rather it is meant to serve as a reference for researchers who want to reproduce, repair or modify aspects of the FMON rig."
   },
   {
     "objectID": "hardware.html",
@@ -67,27 +67,27 @@
     "href": "gui.html",
     "title": "MATLAB GUI",
     "section": "",
-    "text": "FMON-GUI is an app built using the MATLAB App Designer. The purpose of the app is to give researchers a code-free way to customize and run Bpod protocols. It is currently only set up for 100-0 and FMON-Trainer protocols.\nThe GUI has three panes: H2O, Session Info, and Run Protocol."
+    "text": "fmon_prefs.m is a Graphical User Interface built using the MATLAB App Designer. The purpose of the app is to give researchers a code-free way to customize and run Bpod protocols. It is currently only set up for 100-0 and FMON-Trainer protocols.\nThe GUI has three panes: H2O, Session Info, and Run Protocol."
   },
   {
     "objectID": "gui.html#h2o",
     "href": "gui.html#h2o",
     "title": "MATLAB GUI",
     "section": "H2O",
-    "text": "H2O"
+    "text": "H2O\nThe H2O tab contains a button to flush water tubes, as well as a button to calibrate valve timings. Calibration runs trigger each selected valve for 100 repetitions. Individual valves can be deselected to be excluded from the calibration run. Once the user navigates to another tab, valve timings are sent to the MATLAB to be referenced by the Bpod protocol."
   },
   {
     "objectID": "gui.html#session-info",
     "href": "gui.html#session-info",
     "title": "MATLAB GUI",
     "section": "Session Info",
-    "text": "Session Info"
+    "text": "Session Info\nThe Session Info tab contains information particular to the session. With the exception of Drug Dose and Total Injection, all fields must be filled out for the protocol to run.\nWhile fields listed under “Session Information” pertain to metadata about the session, fields listed under “Experiment Information” set variables that are referenced by the Bpod protocol. These fields are “Session Length”, “Min ITI”, “Max ITI”, and “Percent Omission.” Upon successful submission of session information, a success dialogue indicates that the Bpod protocol is ready to run."
   },
   {
     "objectID": "gui.html#run-protocol",
     "href": "gui.html#run-protocol",
     "title": "MATLAB GUI",
     "section": "Run Protocol",
-    "text": "Run Protocol"
+    "text": "Run Protocol\nThe Run Protocol tab consists of a single button. By clicking it you will launch the Bpod protocol indicated inside the button, configured with the parameters set in the previous two tabs."
   }
 ]

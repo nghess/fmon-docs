@@ -2,7 +2,7 @@
 title: "MATLAB GUI"
 ---
 
-FMON-GUI is an app built using the MATLAB App Designer. The purpose of the app is to give researchers a code-free way to customize and run Bpod protocols. It is currently only set up for 100-0 and FMON-Trainer protocols.
+fmon_prefs.m is a Graphical User Interface built using the MATLAB App Designer. The purpose of the app is to give researchers a code-free way to customize and run Bpod protocols. It is currently only set up for 100-0 and FMON-Trainer protocols.
 
 The GUI has three panes: H2O, Session Info, and Run Protocol.
 
@@ -16,10 +16,23 @@ The GUI has three panes: H2O, Session Info, and Run Protocol.
     + Once session info is filled in, protocol is ready to run.
 
 ## H2O
+The H2O tab contains a button to flush water tubes, as well as a button to calibrate valve timings. Calibration runs trigger each selected valve for 100 repetitions. Individual valves can be deselected to be excluded from the calibration run. Once the user navigates to another tab, valve timings are sent to the MATLAB to be [referenced by the Bpod protocol](bpod.qmd#set-up-reward-timings).
+
+![](images/gui_h2o.png){fig-align="center"}
 
 ## Session Info
+The Session Info tab contains information particular to the session. With the exception of Drug Dose and Total Injection, all fields must be filled out for the protocol to run. 
+
+While fields listed under "Session Information" pertain to metadata about the session, fields listed under "Experiment Information" set variables that are referenced by the Bpod protocol. These fields are ["Session Length"](bpod.qmd#session-timer), ["Min ITI"](bpod.qmd#generate-trials), ["Max ITI"](bpod.qmd#generate-trials), and ["Percent Omission](bpod.qmd#generate-trials)." Upon successful submission of session information, a success dialogue indicates that the Bpod protocol is ready to run.
+
+![](images/gui_session_info.png){fig-align="center"}
+
+![](images/gui_session_info_submitted.png){fig-align="center"}
 
 ## Run Protocol
+The Run Protocol tab consists of a single button. By clicking it you will launch the Bpod protocol indicated inside the button, configured with the parameters set in the previous two tabs.
+
+![](images/gui_run.png){fig-align="center"}
 
 
 
