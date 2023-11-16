@@ -11,7 +11,7 @@
     "href": "hardware.html",
     "title": "Electronics",
     "section": "",
-    "text": "Circuit Diagrams and parts list.\nflowchart LR\n\n    %%State Machine and Valve Controllers\n    SM[Bpod Finite State Machine] --&gt; VCL[Valve Controller L]\n    SM --&gt; VCR[Valve Controller R]\n    SM --&gt; VCI[Valve Controller I]\n    SM --&gt; FVL[Final Valve Left]\n    SM --&gt; FVR[Final Valve Right]\n\n    %% Water Valves\n    VCI[Valve Controller I] --&gt; PVI[Water Valve Init.]\n    VCL[Valve Controller L] --&gt; PVL[Water Valve Left]\n    VCR[Valve Controller R] --&gt; PVR[Water Valve Right]\n\n    %% Pokes\n    IRI[Beam Break I] --&gt; VCI\n    IRL[Beam Break L] --&gt; VCL\n    IRR[Beam Break R] --&gt; VCR\n\n    SM --&gt; OFL[Olfactometer L]\n    SM --&gt; OFR[Olfactometer R]\n    OFL --&gt; FVL\n    OFR --&gt; FVR\n    \n    %% NiDAQ Poke\n    IRI --&gt; NDP[NiDAQ_poke]\n    IRL --&gt; NDP\n    IRR --&gt; NDP\n\n    %% NiDAQ Sniff\n    SNF[Thermistor] --&gt; NDS[NiDAQ_sniff]\n    CAM[Camera] --&gt; NDS\n    FVL --&gt; NDS\n    FVR --&gt; NDS"
+    "text": "Below is a schematic showing the connections between the FMON Computer, Bpod State machine and associated peripherals.\nflowchart LR\n    %% NiDAQ Poke\n    IRI --&gt; NDP[NiDAQ_poke]\n    IRL --&gt; NDP\n    IRR --&gt; NDP\n\n    %% NiDAQ Sniff\n    SNF[Thermistor] --&gt; NDS[NiDAQ_sniff]\n    CAM[Camera] --&gt; NDS\n    FVL --&gt; NDS\n    FVR --&gt; NDS\n\n    %%State Machine and Valve Controllers\n    SM[Bpod Finite State Machine r2] --&gt; VCL[Port Interface L]\n    SM --&gt; VCR[Port Interface Right]\n    SM --&gt; VCI[Port Interface Init.]\n    SM --&gt; FVL[Final Valve Left]\n    SM --&gt; FVR[Final Valve Right]\n\n    %% Water Valves\n    VCI --&gt; PVI[Water Valve Init.]\n    VCL --&gt; PVL[Water Valve Left]\n    VCR --&gt; PVR[Water Valve Right]\n\n    %% Pokes\n    IRI[Beam Break Init.] --&gt; VCI\n    IRL[Beam Break Left] --&gt; VCL\n    IRR[Beam Break Right] --&gt; VCR\n\n    %% Olfactometer\n    SM --&gt; OFL[Olfactometer Left]\n    SM --&gt; OFR[Olfactometer Right]\n\n    SM --&gt; ANA[Analog Output Module]\n    ANA[Analog Output Module] --&gt; MFCL[MFC Left]\n    ANA --&gt; MFCR[MFC Right]\n\n    SM &lt;--&gt; COMP[Computer]\n    NDS --&gt; COMP\n    NDP --&gt; COMP"
   },
   {
     "objectID": "data.html",
@@ -137,6 +137,6 @@
     "href": "hardware.html#hardware",
     "title": "Electronics",
     "section": "Hardware",
-    "text": "Hardware\n\nBpod Finite State Machine r2 (1)\nBpod Valve Module (3)\nBpod Analogue Output (1)\nNational Instruments NiDAQ 6001 (2)\n[Final Valves]\n[Pinch Valves]\n[Olfactometer]\n[Mass Flow Controllers (2)]"
+    "text": "Hardware\n\nBpod Finite State Machine r2 (1)\nBpod Port Interface (3)\nBpod Analogue Output Module (1)\nNational Instruments NiDAQ 6001 (2)\n[Final Valves]\n[Pinch Valves]\n[Olfactometer]\n[Mass Flow Controllers (2)]"
   }
 ]

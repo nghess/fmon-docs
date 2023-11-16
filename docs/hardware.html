@@ -153,35 +153,12 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Circuit Diagrams and parts list.</p>
+<p>Below is a schematic showing the connections between the FMON Computer, Bpod State machine and associated peripherals.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <div>
 <pre class="mermaid mermaid-js">flowchart LR
-
-    %%State Machine and Valve Controllers
-    SM[Bpod Finite State Machine] --&gt; VCL[Valve Controller L]
-    SM --&gt; VCR[Valve Controller R]
-    SM --&gt; VCI[Valve Controller I]
-    SM --&gt; FVL[Final Valve Left]
-    SM --&gt; FVR[Final Valve Right]
-
-    %% Water Valves
-    VCI[Valve Controller I] --&gt; PVI[Water Valve Init.]
-    VCL[Valve Controller L] --&gt; PVL[Water Valve Left]
-    VCR[Valve Controller R] --&gt; PVR[Water Valve Right]
-
-    %% Pokes
-    IRI[Beam Break I] --&gt; VCI
-    IRL[Beam Break L] --&gt; VCL
-    IRR[Beam Break R] --&gt; VCR
-
-    SM --&gt; OFL[Olfactometer L]
-    SM --&gt; OFR[Olfactometer R]
-    OFL --&gt; FVL
-    OFR --&gt; FVR
-    
     %% NiDAQ Poke
     IRI --&gt; NDP[NiDAQ_poke]
     IRL --&gt; NDP
@@ -193,6 +170,37 @@ ul.task-list li input[type="checkbox"] {
     FVL --&gt; NDS
     FVR --&gt; NDS
 
+    %%State Machine and Valve Controllers
+    SM[Bpod Finite State Machine r2] --&gt; VCL[Port Interface L]
+    SM --&gt; VCR[Port Interface Right]
+    SM --&gt; VCI[Port Interface Init.]
+    SM --&gt; FVL[Final Valve Left]
+    SM --&gt; FVR[Final Valve Right]
+
+    %% Water Valves
+    VCI --&gt; PVI[Water Valve Init.]
+    VCL --&gt; PVL[Water Valve Left]
+    VCR --&gt; PVR[Water Valve Right]
+
+    %% Pokes
+    IRI[Beam Break Init.] --&gt; VCI
+    IRL[Beam Break Left] --&gt; VCL
+    IRR[Beam Break Right] --&gt; VCR
+
+    %% Olfactometer
+    SM --&gt; OFL[Olfactometer Left]
+    SM --&gt; OFR[Olfactometer Right]
+
+    SM --&gt; ANA[Analog Output Module]
+    ANA[Analog Output Module] --&gt; MFCL[MFC Left]
+    ANA --&gt; MFCR[MFC Right]
+
+    SM &lt;--&gt; COMP[Computer]
+    NDS --&gt; COMP
+    NDP --&gt; COMP
+
+    
+
 </pre>
 </div>
 </div>
@@ -201,10 +209,10 @@ ul.task-list li input[type="checkbox"] {
 <section id="hardware" class="level2">
 <h2 class="anchored" data-anchor-id="hardware">Hardware</h2>
 <ul>
-<li><a href="">Bpod Finite State Machine r2 (1)</a></li>
-<li><a href="">Bpod Valve Module (3)</a></li>
-<li><a href="">Bpod Analogue Output (1)</a></li>
-<li><a href="">National Instruments NiDAQ 6001 (2)</a></li>
+<li><a href="https://sanworks.io/shop/viewproduct?productID=1024">Bpod Finite State Machine r2 (1)</a></li>
+<li><a href="https://sanworks.io/shop/viewproduct?productID=1008">Bpod Port Interface (3)</a></li>
+<li><a href="https://sanworks.io/shop/viewproduct?productID=1013">Bpod Analogue Output Module (1)</a></li>
+<li><a href="https://www.ni.com/en-us/shop/model/usb-6001.html">National Instruments NiDAQ 6001 (2)</a></li>
 <li>[Final Valves]</li>
 <li>[Pinch Valves]</li>
 <li>[Olfactometer]</li>
