@@ -2,9 +2,9 @@
 title: "Bpod Protocol"
 ---
 
-This page includes all code used in the fmon_task.m Bpod protocol for the 100-0 task, along with a graph describing the flow of the Bpod state machine.
+This page includes all code used in the [fmon_task.m](https://github.com/nghess/fmon-bpod/blob/main/bpod%20protocols/fmon_task/fmon_task.m) Bpod protocol for the 100-0 task, along with a graph describing the flow of the Bpod state machine.
 
-The protocol is designed to be run in conjunction with [Bonsai](bonsai.qmd), which uses realtime video tracking to provide SoftCodes to Bpod. SoftCode1 indicates that the mouse has crossed the choice boundary on the left side, Softcode3 indicates that the mouse has crossed on the right, and SoftCode2 indicates that the mouse has not yet crossed the choice boundary.
+The protocol is designed to be run in conjunction with [Bonsai](bonsai.qmd), which uses realtime video tracking to provide SoftCodes to Bpod. APP_SoftCode1 indicates that the mouse has crossed the choice boundary on the left side, APP_Softcode3 indicates that the mouse has crossed on the right, and APP_SoftCode2 indicates that the mouse has yet to cross the choice boundary.
 
 ### State Machine Flow
 ```{mermaid}
@@ -20,10 +20,10 @@ graph TD
     WaitForInitPoke -->|Port3In| StateOnInitPoke
     StateOnInitPoke --> GoLeft
     StateOnInitPoke --> GoRight
-    GoLeft -->|SoftCode1| CorrectLeft
-    GoLeft -->|SoftCode3| NoReward
-    GoRight -->|SoftCode1| NoReward
-    GoRight -->|SoftCode3| CorrectRight
+    GoLeft -->|APP_SoftCode1| CorrectLeft
+    GoLeft -->|APP_SoftCode3| NoReward
+    GoRight -->|APP_SoftCode1| NoReward
+    GoRight -->|APP_SoftCode3| CorrectRight
     CorrectLeft -->|Port1In| LeftReward
     CorrectRight -->|Port2In| RightReward
     NoReward --> ITI
@@ -32,26 +32,26 @@ graph TD
     Drinking -->|Tup, Port1Out, Port2Out| ITI
     ITI --> OdorantState
 ```
+
 # MATLAB Code
+The following code chunks are an exact copy of [fmon_task.m](https://github.com/nghess/fmon-bpod/blob/main/bpod%20protocols/fmon_task/fmon_task.m), broken down into sections for ease of reference.
+
 ### Initialize Bpod and Start Bonsai
-Begins defining the Bpod protocol and executes an external Python script to start Bonsai.
+Initializes the Bpod protocol definition and executes an external Python script to start Bonsai. The [Python script](https://github.com/nghess/fmon-bpod/blob/main/connect_gui.py) uses the pyautogui and pygetwindow libraries to start whichever file is loaded in Bonsai.
 ```matlab
 function fmon_task
 %% Initialize Bpod
 global BpodSystem
-S = BpodSystem.ProtocolSettings; 
+S = BpodSystem.ProtocolSettings;
 
-%Clear Bpod TCP Socket
-BpodSystem.BonsaiSocket = [];
-
+%% Start Bonsai
 % Run Bonsai connect Python Script
 [~,~] = system('start C:\ProgramData\Anaconda3\python.exe D:\fmon-bpod\connect_gui.py');
-
-% Connect Bpod to Bonsai
-BpodSystem.BonsaiSocket = TCPCom(11235);
+% Wait for Bonsai to start
+java.lang.Thread.sleep(1000);
 ```
 
-### Session Timer {#session_timer}
+### Session Timer
 MATLAB timer. Pulls from the "Session Length" field in "Session Info" tab of [FMON-GUI](gui.qmd).
 ```matlab
 %% Set Up Session Timer
@@ -82,11 +82,12 @@ t.TimerFcn = @(obj, event)timeUp(obj, event, session_duration);
 start(t);
 ```
 
-### Set up Reward Timings {#reward_timings}
+### Set up Reward Timings
+Sets water valve timings. Pulls valve timings from the "H2O" tab of [FMON-GUI](gui.qmd).
 ```matlab
 %% Set Reward amounts
 % Read variables from workspace, supplied by fmon_prefs.m GUI.
-% If Variables don't exist, set to defaults (.1 seconds)
+% If variables don't exist, set to defaults (.1 seconds)
 if evalin('base', 'exist(''LeftValveTime'', ''var'')')
     LeftValveTime = evalin('base', 'LeftValveTime');
 else
@@ -106,7 +107,8 @@ PortOutDelay = .5;
 PokeTimer = 5;
 ```
 
-### Generate Trials {#generate_trials}
+### Generate Trials
+Code to generate trial sequence. Below code is for up to 200 trials total. Percentage of omission trials is defined in the fmon_prefs.m [GUI](gui.qmd). Additionally, code to ensure that no trial type is repeated more than 3 times in a row. Finally, code to construct the ITI list, with min and max ITI times (optionally) defined in the GUI.
 ```matlab
 %% Define trials
 nLeftTrials = 100;
@@ -154,14 +156,16 @@ end
 iti_list = round((max_iti-min_iti) .* rand(1,length(TrialTypes)) + min_iti);
 ```
 
-### Trial Outcome Plots {#outcome_plot}
+### Trial Outcome Plots
+Generates a visualization of trial type and outcome that updates after the completion of each trial.
 ```matlab
 BpodSystem.ProtocolFigures.OutcomePlotFig = figure('Position', [50 540 1000 250],'name','Outcome plot','numbertitle','off', 'MenuBar', 'none', 'Resize', 'off');
 BpodSystem.GUIHandles.OutcomePlot = axes('Position', [.075 .3 .89 .6]);
 TrialTypeOutcomePlot(BpodSystem.GUIHandles.OutcomePlot,'init',TrialTypes);
 ```
 
-### Begin Trial Loop {#begin_loop}
+### Begin Trial Loop
+Beginning of for loop iterating over trials. Additionally, definitions of serial messages to be sent to olfactometer and final valves. The 'switch' control statement changes the definitions of StateOnInitPoke and OdorantState according to which TrialType is currently being executed.
 ```matlab
 %% Main trial loop
 for currentTrial = 1:MaxTrials
@@ -189,38 +193,38 @@ for currentTrial = 1:MaxTrials
 
 ```
 
-### States {#states}
+### States
+Definitions of each state in the experiment. The structure of each state is straightforward:
+
+* 'Timer' sets a timer in seconds ('Tup' means timer has expired)
+*  'StateChangeConditions' takes argument pairs of events and the resulting state change.
+    + e.g. {'Tup', 'WaitForInitPoke'} means when the timer has expired, the state changes to WaitForInitPoke.
+    + Each state can take an arbitrary number of 'StateChangeConditions' argument pairs.
 
 ```matlab
+    % Initialize new state machine description
+    sma = NewStateMachine(); 
+    
+    % State definitions    
     sma = AddState(sma, 'Name', 'Reset', ...
         'Timer', .5,...
         'StateChangeConditions', {'Tup', OdorantState},...
         'OutputActions', {'ValveModule1', 3, 'ValveModule2', 3, 'ValveModule3', 2});  % Reset all valves to 0V
-
+    
     sma = AddState(sma, 'Name', 'OdorLeft', ...
         'Timer', 1,...
         'StateChangeConditions', {'Tup', 'WaitForInitPoke'},...
         'OutputActions', {'ValveModule1', 1, 'ValveModule2', 2});  % Left odor, right omission
 
-    sma = AddState(sma, 'Name', 'OdorLeft', ...
-            'Timer', 1,...
-            'StateChangeConditions', {'Tup', 'WaitForInitPoke'},...
-            'OutputActions', {'ValveModule1', 1, 'ValveModule2', 2});  % Left odor, right omission
-
     sma = AddState(sma, 'Name', 'OdorRight', ...
         'Timer', 1,...
         'StateChangeConditions', {'Tup', 'WaitForInitPoke'},...
         'OutputActions', {'ValveModule1', 2, 'ValveModule2', 1});  % Left omission, right odor
-
-    sma = AddState(sma, 'Name', 'OdorOmitLeft', ...
+    
+    sma = AddState(sma, 'Name', 'OdorOmit', ...
         'Timer', 1,...
         'StateChangeConditions', {'Tup', 'WaitForInitPoke'},...
-        'OutputActions', {'ValveModule1', 2, 'ValveModule2', 0});  % Left omission , Right reset (flow through dummy vial)
-
-    sma = AddState(sma, 'Name', 'OdorOmitRight', ...
-        'Timer', 1,...
-        'StateChangeConditions', {'Tup', 'WaitForInitPoke'},...
-        'OutputActions', {'ValveModule1', 0, 'ValveModule2', 2});  % Left dummy , Right omission.
+        'OutputActions', {'ValveModule1', 2, 'ValveModule2', 2});  % Both omission valves open to mask audio cue
 
     sma = AddState(sma, 'Name', 'WaitForInitPoke', ...
         'Timer', 0,...
@@ -228,19 +232,24 @@ for currentTrial = 1:MaxTrials
         'OutputActions', {});
 
     sma = AddState(sma, 'Name', 'GoLeft', ...
-        'Timer', 0,...
-        'StateChangeConditions', {'SoftCode1', 'CorrectLeft', 'SoftCode3', 'NoReward'},...
+        'Timer', .1,...
+        'StateChangeConditions', {L_sector, 'CorrectLeft', R_sector, 'NoReward'},...
         'OutputActions', {'ValveModule3', 1});  % Final valves open
-
+    
     sma = AddState(sma, 'Name', 'GoRight', ...
-        'Timer', 0,...
-        'StateChangeConditions', {'SoftCode1', 'NoReward', 'SoftCode3', 'CorrectRight'},...
-        'OutputActions', {'ValveModule3', 1});  % Final valves open
-
-    sma = AddState(sma, 'Name', 'Omission', ...
-        'Timer', 0,...
-        'StateChangeConditions', {'SoftCode1', 'NoReward', 'SoftCode3', 'NoReward'},...  % Reward on either side
-        'OutputActions', {'ValveModule3', 1});  % Final valves open
+        'Timer', .1,...
+        'StateChangeConditions', {L_sector, 'NoReward', R_sector, 'CorrectRight'},...
+        'OutputActions', {'ValveModule3', 1});  % Both Final valves open
+    
+    sma = AddState(sma, 'Name', 'GoLeftOmit', ...
+        'Timer', .1,...
+        'StateChangeConditions', {L_sector, 'CorrectLeft', R_sector, 'NoReward'},...
+        'OutputActions', {'ValveModule3', 1});  % Left Final valve opens
+    
+    sma = AddState(sma, 'Name', 'GoRightOmit', ...
+        'Timer', .1,...
+        'StateChangeConditions', {L_sector, 'NoReward', R_sector, 'CorrectRight'},...
+        'OutputActions', {'ValveModule3', 1});  % Right Final valve opens
 
     sma = AddState(sma, 'Name', 'CorrectLeft', ...
         'Timer', PokeTimer,...
@@ -256,33 +265,34 @@ for currentTrial = 1:MaxTrials
         'Timer', PokeTimer,...
         'StateChangeConditions', {'Tup', 'ITI', 'Port1In', 'ITI', 'Port2In', 'ITI', 'Port3In', 'ITI'},...
         'OutputActions', {'ValveModule1', 3, 'ValveModule2', 3, 'ValveModule3', 2}); % On decision, reset all valves
-
+    
     sma = AddState(sma, 'Name', 'LeftReward', ...
         'Timer', LeftValveTime,...
         'StateChangeConditions', {'Tup', 'Drinking'},...
         'OutputActions', {'ValveState', 1, 'ValveModule1', 3, 'ValveModule2', 3, 'ValveModule3', 2});  % On left poke give water & reset valves.
-
+    
     sma = AddState(sma, 'Name', 'RightReward', ...
         'Timer', RightValveTime,...
         'StateChangeConditions', {'Tup', 'Drinking'},...
         'OutputActions', {'ValveState', 2, 'ValveModule1', 3, 'ValveModule2', 3, 'ValveModule3', 2});  % On right poke give water & reset valves.
-
+    
     sma = AddState(sma, 'Name', 'Drinking', ...
         'Timer', 5,...
         'StateChangeConditions', {'Tup', 'ITI', 'Port1Out', 'ConfirmPortOut', 'Port2Out', 'ConfirmPortOut'},... 
         'OutputActions', {});
-
+    
     sma = AddState(sma, 'Name', 'ConfirmPortOut', ...
         'Timer', PortOutDelay,...
         'StateChangeConditions', {'Tup', 'ITI', 'Port1In', 'Drinking', 'Port2In', 'Drinking'},...
         'OutputActions', {});
-
+    
     sma = AddState(sma, 'Name', 'ITI', ... 
         'Timer', iti_list(currentTrial),...
         'StateChangeConditions', {'Tup', 'exit'},...
         'OutputActions', {}); 
 ```
-### End Trial Loop {#end_loop}
+### End Trial Loop
+Code to save data from the most recent trial. This code is Bpod boilerplate and should not be modified unless the user knows exactly what they are doing.
 ```matlab
 T = BpodTrialManager;
     T.startTrial(sma)
@@ -300,8 +310,8 @@ T = BpodTrialManager;
     end
 end
 ```
-### Update Outcome Plot {#update_plot}
-This function updates the trial outcome plot while the session is running.
+### Update Outcome Plot
+This function updates the trial outcome plot while the session is running. Outcome plot displays trial types and whether mouse gave a correct or incorrect choice.
 ```matlab
 function UpdateOutcomePlot(TrialTypes, Data)
     global BpodSystem
@@ -316,18 +326,15 @@ function UpdateOutcomePlot(TrialTypes, Data)
     TrialTypeOutcomePlot(BpodSystem.GUIHandles.OutcomePlot,'update',Data.nTrials+1,TrialTypes,Outcomes);
 ```
 
-### timeUp Function {#timeup}
-When session duration expires, the timeUp function is executed. This function stops the Bpod protocol, stops Bonsai, then runs a [script](data.qmd) to summarize and save the session's data.
+### timeUp Function
+When session duration (as defined in the "Session Info" tab of the [GUI](gui.qmd)) expires, the timeUp function is executed. This function stops the Bpod protocol, stops Bonsai, then runs a data ouput [script](data.qmd) to summarize and save the session's data.
 ```matlab
 %% Execute when time is up:
 function timeUp(obj, event, duration)
     disp(num2str(duration) + " minutes have elapsed! The session has ended.");  % Print to console, maybe make this an alert
-    %SaveBpodSessionData();  % Save Session Data to Bpod data folder
-    BpodSystem.BonsaiSocket = [];  % Stop the connection to Bonsai.
     RunProtocol('Stop');  % Stop the protocol
     java.lang.Thread.sleep(1000);
-
     [~,~] = system('start C:\ProgramData\Anaconda3\python.exe D:\fmon-bpod\disconnect_gui.py'); % Stop Bonsai
     disp('Running data output script...');
-    run('D:\fmon-bpod\fmon_data_output.m'); % Run data processing script
+    run('D:\fmon-bpod\fmon_data_output_aw.m'); % Run data output script
 ```

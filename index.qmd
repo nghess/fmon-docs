@@ -6,5 +6,6 @@ Welcome to the documentation for Smear Lab's Freely Moving Olfactory Navigation 
 
 The rig's hardware is controlled by a [Bpod](bpod.qmd) state machine running in MATLAB and receiving realtime input from [Bonsai](bonsai.qmd). All data related to trial state is recorded by Bpod, while all analog electrical signals (e.g. sniff signal) are recorded by Bonsai.
 
-The rig can be run either directly from the Bpod Console, or using a custom [GUI](gui.qmd) that is tailored for researcher assistants to easily run specific FMON experiments.
+The rig can be run either directly from the Bpod Console, or using a custom [GUI](gui.qmd) that is tailored for research assistants to easily run specific FMON experiments.
 
+This documentation is intended to provide a detailed reference to the FMON Rig and the software that makes it work. You may navigate directly to topics using the navbar at the top of the page, or search for a specific topic or code snippet using the search button at the upper right corner. 

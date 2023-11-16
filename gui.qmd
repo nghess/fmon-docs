@@ -15,5 +15,11 @@ The GUI has three panes: H2O, Session Info, and Run Protocol.
 * Run Protocol
     + Once session info is filled in, protocol is ready to run.
 
+## H2O
+
+## Session Info
+
+## Run Protocol
+
 
 

@@ -13,10 +13,10 @@ website:
         text: Bonsai
       - href: bpod.qmd
         text: Bpod Protocol
-      - href: hardware.qmd
-        text: Hardware
       - href: data.qmd
         text: Data
+      - href: hardware.qmd
+        text: Hardware
       - href: about.qmd
         text: About
     tools:
