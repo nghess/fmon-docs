@@ -129,6 +129,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#h2o" id="toc-h2o" class="nav-link active" data-scroll-target="#h2o">H2O</a></li>
   <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info">Session Info</a></li>
   <li><a href="#run-protocol" id="toc-run-protocol" class="nav-link" data-scroll-target="#run-protocol">Run Protocol</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -152,18 +153,18 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>fmon_prefs.m is a Graphical User Interface built using the MATLAB App Designer. The purpose of the app is to give researchers a code-free way to customize and run Bpod protocols. It is currently only set up for 100-0 and FMON-Trainer protocols.</p>
+<p>fmon_prefs.m is a Graphical User Interface (GUI) built using the MATLAB App Designer. The purpose of the app is to give researchers a code-free way to customize and run Bpod protocols. It is currently only set up for 100-0 and FMON-Trainer protocols.</p>
 <p>The GUI has three panes: H2O, Session Info, and Run Protocol.</p>
 <ul>
-<li>H2O
+<li><a href="#h2o">H2O</a>
 <ul>
 <li>Water calibration pane. Allows calibration of water reward.</li>
 </ul></li>
-<li>Session Info
+<li><a href="#session-info">Session Info</a>
 <ul>
 <li>Experimenter, mouse and session information.</li>
 </ul></li>
-<li>Run Protocol
+<li><a href="#run-protocol">Run Protocol</a>
 <ul>
 <li>Once session info is filled in, protocol is ready to run.</li>
 </ul></li>
@@ -179,8 +180,8 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="session-info" class="level2">
 <h2 class="anchored" data-anchor-id="session-info">Session Info</h2>
-<p>The Session Info tab contains information particular to the session. With the exception of Drug Dose and Total Injection, all fields must be filled out for the protocol to run.</p>
-<p>While fields listed under “Session Information” pertain to metadata about the session, fields listed under “Experiment Information” set variables that are referenced by the Bpod protocol. These fields are <a href="./bpod.html#session-timer">“Session Length”</a>, <a href="./bpod.html#generate-trials">“Min ITI”</a>, <a href="./bpod.html#generate-trials">“Max ITI”</a>, and <a href="./bpod.html#generate-trials">“Percent Omission</a>.” Upon successful submission of session information, a success dialogue indicates that the Bpod protocol is ready to run.</p>
+<p>The Session Info tab contains information particular to the session. With the exception of “Drug Dose” and “Total Injection”, all fields must be filled out for the protocol to run.</p>
+<p>While fields listed under “Session Information” pertain to metadata about the session, fields listed under “Experiment Information” set variables that are referenced by the Bpod protocol. These fields are <a href="./bpod.html#session-timer" title="Bpod session timer code">“Session Length”</a>, <a href="./bpod.html#generate-trials" title="Bpod trial generation code">“Min ITI”</a>, <a href="./bpod.html#generate-trials" title="Bpod trial generation code">“Max ITI”</a>, and <a href="./bpod.html#generate-trials" title="Bpod trial generation code">“Percent Omission</a>.” Upon successful submission of session information, a success dialogue indicates that the Bpod protocol is ready to run.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/gui_session_info.png" class="img-fluid figure-img"></p>
@@ -194,12 +195,19 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="run-protocol" class="level2">
 <h2 class="anchored" data-anchor-id="run-protocol">Run Protocol</h2>
-<p>The Run Protocol tab consists of a single button. By clicking it you will launch the Bpod protocol indicated inside the button, configured with the parameters set in the previous two tabs.</p>
+<p>The Run Protocol tab consists of a single button. By clicking it you will launch the Bpod protocol indicated inside the button, configured with the variables set in the previous two tabs.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/gui_run.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<ul>
+<li><a href="https://www.mathworks.com/products/matlab/app-designer.html">Matlab App Designer Homepage</a></li>
+<li><a href="https://www.mathworks.com/videos/app-designer-overview-1510748719083.html">Getting Started with App Designer Video Tutorial</a></li>
+</ul>
 
 
 </section>

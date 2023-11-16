@@ -4,7 +4,7 @@ title: "Bpod Protocol"
 
 This page includes all code used in the [fmon_task.m](https://github.com/nghess/fmon-bpod/blob/main/bpod%20protocols/fmon_task/fmon_task.m) Bpod protocol for the 100-0 task, along with a graph describing the flow of the Bpod state machine.
 
-The protocol is designed to be run in conjunction with [Bonsai](bonsai.qmd), which uses realtime video tracking to provide SoftCodes to Bpod. APP_SoftCode1 indicates that the mouse has crossed the choice boundary on the left side, APP_Softcode3 indicates that the mouse has crossed on the right, and APP_SoftCode2 indicates that the mouse has yet to cross the choice boundary.
+The protocol is designed to be run in conjunction with [Bonsai](bonsai.qmd), which uses realtime video tracking to provide SoftCodes to Bpod over a serial connection. APP_SoftCode1 indicates that the mouse has crossed the choice boundary on the left side, APP_Softcode3 indicates that the mouse has crossed on the right, and APP_SoftCode2 indicates that the mouse has yet to cross the choice boundary.
 
 ### State Machine Flow
 ```{mermaid}
@@ -83,7 +83,7 @@ start(t);
 ```
 
 ### Set up Reward Timings
-Sets water valve timings. Pulls valve timings from the "H2O" tab of [FMON-GUI](gui.qmd).
+Sets water valve timings. Pulls valve timings from the "H2O" tab of the fmon_prefs.m [GUI](gui.qmd#h2o).
 ```matlab
 %% Set Reward amounts
 % Read variables from workspace, supplied by fmon_prefs.m GUI.
@@ -327,7 +327,7 @@ function UpdateOutcomePlot(TrialTypes, Data)
 ```
 
 ### timeUp Function
-When session duration (as defined in the "Session Info" tab of the [GUI](gui.qmd)) expires, the timeUp function is executed. This function stops the Bpod protocol, stops Bonsai, then runs a data ouput [script](data.qmd) to summarize and save the session's data.
+When session duration, as defined in the "Session Info" tab of the [GUI](gui.qmd), expires, the timeUp function is executed. This function stops the Bpod protocol, stops Bonsai, then runs a data ouput [script](data.qmd) to summarize and save the session's data.
 ```matlab
 %% Execute when time is up:
 function timeUp(obj, event, duration)
@@ -338,3 +338,8 @@ function timeUp(obj, event, duration)
     disp('Running data output script...');
     run('D:\fmon-bpod\fmon_data_output_aw.m'); % Run data output script
 ```
+# Resources
++ [Bpod Wiki](https://sanworks.github.io/Bpod_Wiki/)
++ [Bpod Forums](https://sanworks.io/forums/)
++ [Bpod Github](https://github.com/sanworks/Bpod_Gen2)
++ [Sanworks Website](https://sanworks.io/)

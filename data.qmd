@@ -4,9 +4,9 @@ title: "Data Acquisition"
 
 At the end of each session, the [timeUp()](bpod.qmd#timeup) function stops Bpod and Bonsai, then executes [fmon_data_output.m](https://github.com/nghess/fmon-bpod/blob/main/fmon_data_output.m), a MATLAB script that saves and summarizes the recently acquired data.
 
-The data output script handles copying and saving Bpod session data, NiDAQ data, and video files. Additionally, the script creates a short summary of session information and mouse performance, then saves and displays them as a text file.
+The data output script handles copying and saving Bpod session data, NiDAQ data, and video files. Additionally, the script creates a summary of session information and mouse performance, then saves and displays it as a text file.
 
-These data are all saved in the appropriate directory. Directories are organized by mouse ID, session type, and session number.
+These data are all saved in the appropriate directory. Directories are organized by mouse ID, session type, and session number. For example, data for Mouse 1234, 100-0 task, session 5, will be saved to D:/fmon_data/1234/100-0/5/
 
 ## Saved Data
 In each session folder you will find:
@@ -24,3 +24,10 @@ In each session folder you will find:
 * rawvideo202x-xx-xxTxx_xx_xx.avi
     + Raw video file captured by Bonsai.
 
+## Data Processing
+Prior to analysis, data from Bonsai and Bpod must be processed and temporally aligned. I've broken the pipeline into a series of functions, which can be executed in order using [fmon_data_builder.m](https://github.com/nghess/fmon-bpod/blob/main/data_scripts/fmon_data_builder.m) then visualized with [fmon_data_visualize.m](https://github.com/nghess/fmon-bpod/blob/main/data_scripts/fmon_data_visualize.m). An example visualization is shown below.
+
+![](images/example_data.png)
+
+## Resources
+[FMON data scripts on Github](https://github.com/nghess/fmon-bpod/tree/main/data_scripts)

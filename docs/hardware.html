@@ -59,6 +59,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="styles.css">
@@ -122,7 +125,13 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#hardware" id="toc-hardware" class="nav-link active" data-scroll-target="#hardware">Hardware</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -145,8 +154,65 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p>Circuit Diagrams and parts list.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+
+    %%State Machine and Valve Controllers
+    SM[Bpod Finite State Machine] --&gt; VCL[Valve Controller L]
+    SM --&gt; VCR[Valve Controller R]
+    SM --&gt; VCI[Valve Controller I]
+    SM --&gt; FVL[Final Valve Left]
+    SM --&gt; FVR[Final Valve Right]
+
+    %% Water Valves
+    VCI[Valve Controller I] --&gt; PVI[Water Valve Init.]
+    VCL[Valve Controller L] --&gt; PVL[Water Valve Left]
+    VCR[Valve Controller R] --&gt; PVR[Water Valve Right]
+
+    %% Pokes
+    IRI[Beam Break I] --&gt; VCI
+    IRL[Beam Break L] --&gt; VCL
+    IRR[Beam Break R] --&gt; VCR
+
+    SM --&gt; OFL[Olfactometer L]
+    SM --&gt; OFR[Olfactometer R]
+    OFL --&gt; FVL
+    OFR --&gt; FVR
+    
+    %% NiDAQ Poke
+    IRI --&gt; NDP[NiDAQ_poke]
+    IRL --&gt; NDP
+    IRR --&gt; NDP
+
+    %% NiDAQ Sniff
+    SNF[Thermistor] --&gt; NDS[NiDAQ_sniff]
+    CAM[Camera] --&gt; NDS
+    FVL --&gt; NDS
+    FVR --&gt; NDS
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+<section id="hardware" class="level2">
+<h2 class="anchored" data-anchor-id="hardware">Hardware</h2>
+<ul>
+<li><a href="">Bpod Finite State Machine r2 (1)</a></li>
+<li><a href="">Bpod Valve Module (3)</a></li>
+<li><a href="">Bpod Analogue Output (1)</a></li>
+<li><a href="">National Instruments NiDAQ 6001 (2)</a></li>
+<li>[Final Valves]</li>
+<li>[Pinch Valves]</li>
+<li>[Olfactometer]</li>
+<li>[Mass Flow Controllers (2)]</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

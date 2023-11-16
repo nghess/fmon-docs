@@ -131,6 +131,7 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#fmon-bonsai-schematic" id="toc-fmon-bonsai-schematic" class="nav-link active" data-scroll-target="#fmon-bonsai-schematic">FMON Bonsai Schematic</a></li>
   <li><a href="#using-bonsai" id="toc-using-bonsai" class="nav-link" data-scroll-target="#using-bonsai">Using Bonsai</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -156,7 +157,7 @@ ul.task-list li input[type="checkbox"] {
 
 <p><a href="https://bonsai-rx.org" title="Bonsai Website">Bonsai</a> is a visual reactive programming environment that allows users to define and manipulate complex networks of sensors. Bonsai allows for high speed, asynchronous data acquisition and as of November 2023, is actively maintained.</p>
 <p>We have a developed a Bonsai protocol for the FMON rig that acquires video from a camera above the arena, then applies custom code to track mouse location and share this information with our Bpod protocols in real time.</p>
-<p>Bonsai is written in C# and has a relatively steep learning curve. That said, it is an excellent tool, offering high performance and an active <a href="https://github.com/orgs/bonsai-rx/discussions/" title="Bonsai Discussion Board on Github">community</a>.</p>
+<p>Bonsai is written in C# and has a relatively steep learning curve. That said, it is an excellent tool, offering high performance, active maintenence, and a vibrant <a href="https://github.com/orgs/bonsai-rx/discussions/" title="Bonsai Discussion Board on Github">community</a> of researchers.</p>
 <section id="fmon-bonsai-schematic" class="level2">
 <h2 class="anchored" data-anchor-id="fmon-bonsai-schematic">FMON Bonsai Schematic</h2>
 <p>Below is a simplified schematic describing the essential structure of the <a href="https://github.com/nghess/fmon-bpod/tree/main/bonsai%20protocols">bonsai-fmon.bonsai</a> file.</p>
@@ -166,18 +167,17 @@ ul.task-list li input[type="checkbox"] {
 <div>
 <pre class="mermaid mermaid-js">flowchart LR
 
-    Open_Bpod_COM_Port
+    X["Open Bpod COM Port"]
 
-    Camera_Capture --&gt; Write_Video_Frame
-    Write_Video_Frame --&gt; Get_Head_Position
-    Camera_Capture --&gt; Get_Centroid_Position
-    Get_Head_Position --&gt; Estimate_Nose_Position
-    Get_Centroid_Position --&gt; Estimate_Nose_Position
+    A["Camera Capture"] --&gt; B["Write Video Frame"]
+    B["Write Video Frame"] --&gt; C["Get Head Position"]
+    A["Camera Capture"] --&gt; E["Get Centroid Position"]
+    C["Get Head Position"] --&gt; G["Estimate Nose Position"]
+    E["Get Centroid Position"] --&gt; G["Estimate Nose Position"]
+    G["Estimate Nose Position"] --&gt; H["Send APP Softcode to COM Port"]
+    G["Estimate Nose Position"] --&gt; I["Write Bonsai TimeStamp"]
 
-    Estimate_Nose_Position --&gt; Send_APP_Softcode_to_COM_Port
-    Estimate_Nose_Position --&gt; Write_Bonsai_TimeStamp
-
-    NiDAQ_Capture --&gt; Write_Binary_Data
+    Y["NiDAQ Capture"] --&gt; Z["Write Binary Data"]
 
 
 </pre>
@@ -188,8 +188,8 @@ ul.task-list li input[type="checkbox"] {
 <p>The actual Bonsai file consists of a larger series of image filters and <a href="https://ironpython.net/">IronPython 2.7</a> code chunks, but the above schematic describes the overall file architecture and all the core tasks Bonsai performs:</p>
 <ul>
 <li>Capturing video</li>
-<li>Estimating realtime mouse position</li>
-<li>Sending mouse position to MATLAB</li>
+<li>Estimating realtime subject position</li>
+<li>Sending subject position to MATLAB</li>
 <li>Writing a timestamp for each video frame</li>
 <li>Recording <a href="https://www.ni.com/en-us/shop/model/usb-6001.html">NiDAQ</a> data.</li>
 </ul>
@@ -198,6 +198,13 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="using-bonsai">Using Bonsai</h2>
 <p>Using bonsai-fmon.bonsai is as simple as opening Bonsai and loading the file. The file should not be started manually, as it started automatically by a Python script executed at the <a href="./bpod.html#initialize-bpod-and-start-bonsai">beginning</a> of each Bpod session.</p>
 <p>Researchers should not need to modify the bonsai-fmon.bonsai file, however it is useful to keep an eye on the video feed and realtime tracking. If a video preview doesn’t automatically pop up, it can be accessed by right-clicking the farthest-right “Python Transform” node, selecting “Show Visualizer” and clicking “Bonsai.Vision.Design.IplImageVisualizer.” This resulting visualizer displays realtime video as well as tracked points (centroid, head and nose) of the mouse and the choice boundaries of the task.</p>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<ul>
+<li><a href="https://bonsai-rx.org">bonsai-rx.com</a></li>
+<li><a href="https://github.com/orgs/bonsai-rx/discussions/">Bonsai Github Discussions</a></li>
+</ul>
 
 
 </section>

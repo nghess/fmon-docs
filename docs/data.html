@@ -127,6 +127,8 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#saved-data" id="toc-saved-data" class="nav-link active" data-scroll-target="#saved-data">Saved Data</a></li>
+  <li><a href="#data-processing" id="toc-data-processing" class="nav-link" data-scroll-target="#data-processing">Data Processing</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -151,8 +153,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p>At the end of each session, the <a href="./bpod.html#timeup">timeUp()</a> function stops Bpod and Bonsai, then executes <a href="https://github.com/nghess/fmon-bpod/blob/main/fmon_data_output.m">fmon_data_output.m</a>, a MATLAB script that saves and summarizes the recently acquired data.</p>
-<p>The data output script handles copying and saving Bpod session data, NiDAQ data, and video files. Additionally, the script creates a short summary of session information and mouse performance, then saves and displays them as a text file.</p>
-<p>These data are all saved in the appropriate directory. Directories are organized by mouse ID, session type, and session number.</p>
+<p>The data output script handles copying and saving Bpod session data, NiDAQ data, and video files. Additionally, the script creates a summary of session information and mouse performance, then saves and displays it as a text file.</p>
+<p>These data are all saved in the appropriate directory. Directories are organized by mouse ID, session type, and session number. For example, data for Mouse 1234, 100-0 task, session 5, will be saved to D:/fmon_data/1234/100-0/5/</p>
 <section id="saved-data" class="level2">
 <h2 class="anchored" data-anchor-id="saved-data">Saved Data</h2>
 <p>In each session folder you will find:</p>
@@ -182,6 +184,15 @@ ul.task-list li input[type="checkbox"] {
 <li>Raw video file captured by Bonsai.</li>
 </ul></li>
 </ul>
+</section>
+<section id="data-processing" class="level2">
+<h2 class="anchored" data-anchor-id="data-processing">Data Processing</h2>
+<p>Prior to analysis, data from Bonsai and Bpod must be processed and temporally aligned. I’ve broken the pipeline into a series of functions, which can be executed in order using <a href="https://github.com/nghess/fmon-bpod/blob/main/data_scripts/fmon_data_builder.m">fmon_data_builder.m</a> then visualized with <a href="https://github.com/nghess/fmon-bpod/blob/main/data_scripts/fmon_data_visualize.m">fmon_data_visualize.m</a>. An example visualization is shown below.</p>
+<p><img src="images/example_data.png" class="img-fluid"></p>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<p><a href="https://github.com/nghess/fmon-bpod/tree/main/data_scripts">FMON data scripts on Github</a></p>
 
 
 </section>

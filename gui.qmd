@@ -6,13 +6,13 @@ fmon_prefs.m is a Graphical User Interface (GUI) built using the MATLAB App Desi
 
 The GUI has three panes: H2O, Session Info, and Run Protocol.
 
-* H2O
+* [H2O](#h2o)
     + Water calibration pane. Allows calibration of water reward.
 
-* Session Info
+* [Session Info](#session-info)
     + Experimenter, mouse and session information.
 
-* Run Protocol
+* [Run Protocol](#run-protocol)
     + Once session info is filled in, protocol is ready to run.
 
 ## H2O
@@ -21,21 +21,22 @@ The H2O tab contains a button to flush water tubes, as well as a button to calib
 ![](images/gui_h2o.png){fig-align="center"}
 
 ## Session Info
-The Session Info tab contains information particular to the session. With the exception of Drug Dose and Total Injection, all fields must be 
+The Session Info tab contains information particular to the session. With the exception of "Drug Dose" and "Total Injection", all fields must be filled out for the protocol to run. 
 
-
-filled out for the protocol to run. 
-
-While fields listed under "Session Information" pertain to metadata about the session, fields listed under "Experiment Information" set variables that are referenced by the Bpod protocol. These fields are ["Session Length"](bpod.qmd#session-timer), ["Min ITI"](bpod.qmd#generate-trials), ["Max ITI"](bpod.qmd#generate-trials), and ["Percent Omission](bpod.qmd#generate-trials)." Upon successful submission of session information, a success dialogue indicates that the Bpod protocol is ready to run.
+While fields listed under "Session Information" pertain to metadata about the session, fields listed under "Experiment Information" set variables that are referenced by the Bpod protocol. These fields are ["Session Length"](bpod.qmd#session-timer 'Bpod session timer code'), ["Min ITI"](bpod.qmd#generate-trials 'Bpod trial generation code'), ["Max ITI"](bpod.qmd#generate-trials 'Bpod trial generation code'), and ["Percent Omission](bpod.qmd#generate-trials 'Bpod trial generation code')." Upon successful submission of session information, a success dialogue indicates that the Bpod protocol is ready to run.
 
 ![](images/gui_session_info.png){fig-align="center"}
 
 ![](images/gui_session_info_submitted.png){fig-align="center"}
 
 ## Run Protocol
-The Run Protocol tab consists of a single button. By clicking it you will launch the Bpod protocol indicated inside the button, configured with the parameters set in the previous two tabs.
+The Run Protocol tab consists of a single button. By clicking it you will launch the Bpod protocol indicated inside the button, configured with the variables set in the previous two tabs.
 
 ![](images/gui_run.png){fig-align="center"}
 
 
+## Resources
+
++ [Matlab App Designer Homepage](https://www.mathworks.com/products/matlab/app-designer.html)
++ [Getting Started with App Designer Video Tutorial](https://www.mathworks.com/videos/app-designer-overview-1510748719083.html)
 

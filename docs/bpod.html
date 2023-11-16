@@ -177,6 +177,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#update-outcome-plot" id="toc-update-outcome-plot" class="nav-link" data-scroll-target="#update-outcome-plot">Update Outcome Plot</a></li>
   <li><a href="#timeup-function" id="toc-timeup-function" class="nav-link" data-scroll-target="#timeup-function">timeUp Function</a></li>
   </ul></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -201,7 +202,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p>This page includes all code used in the <a href="https://github.com/nghess/fmon-bpod/blob/main/bpod%20protocols/fmon_task/fmon_task.m">fmon_task.m</a> Bpod protocol for the 100-0 task, along with a graph describing the flow of the Bpod state machine.</p>
-<p>The protocol is designed to be run in conjunction with <a href="./bonsai.html">Bonsai</a>, which uses realtime video tracking to provide SoftCodes to Bpod. APP_SoftCode1 indicates that the mouse has crossed the choice boundary on the left side, APP_Softcode3 indicates that the mouse has crossed on the right, and APP_SoftCode2 indicates that the mouse has yet to cross the choice boundary.</p>
+<p>The protocol is designed to be run in conjunction with <a href="./bonsai.html">Bonsai</a>, which uses realtime video tracking to provide SoftCodes to Bpod over a serial connection. APP_SoftCode1 indicates that the mouse has crossed the choice boundary on the left side, APP_Softcode3 indicates that the mouse has crossed on the right, and APP_SoftCode2 indicates that the mouse has yet to cross the choice boundary.</p>
 <section id="state-machine-flow" class="level3">
 <h3 class="anchored" data-anchor-id="state-machine-flow">State Machine Flow</h3>
 <div class="cell">
@@ -286,7 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="set-up-reward-timings" class="level3">
 <h3 class="anchored" data-anchor-id="set-up-reward-timings">Set up Reward Timings</h3>
-<p>Sets water valve timings. Pulls valve timings from the “H2O” tab of <a href="./gui.html">FMON-GUI</a>.</p>
+<p>Sets water valve timings. Pulls valve timings from the “H2O” tab of the fmon_prefs.m <a href="./gui.html#h2o">GUI</a>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">%% Set Reward amounts</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">% Read variables from workspace, supplied by fmon_prefs.m GUI.</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">% If variables don't exist, set to defaults (.1 seconds)</span></span>
@@ -526,7 +527,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="timeup-function" class="level3">
 <h3 class="anchored" data-anchor-id="timeup-function">timeUp Function</h3>
-<p>When session duration (as defined in the “Session Info” tab of the <a href="./gui.html">GUI</a>) expires, the timeUp function is executed. This function stops the Bpod protocol, stops Bonsai, then runs a data ouput <a href="./data.html">script</a> to summarize and save the session’s data.</p>
+<p>When session duration, as defined in the “Session Info” tab of the <a href="./gui.html">GUI</a>, expires, the timeUp function is executed. This function stops the Bpod protocol, stops Bonsai, then runs a data ouput <a href="./data.html">script</a> to summarize and save the session’s data.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">%% Execute when time is up:</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">timeUp</span>(<span class="va">obj</span><span class="op">,</span> <span class="va">event</span><span class="op">,</span> <span class="va">duration</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">disp</span>(<span class="va">num2str</span>(<span class="va">duration</span>) <span class="op">+</span> <span class="st">" minutes have elapsed! The session has ended."</span>)<span class="op">;</span>  <span class="co">% Print to console, maybe make this an alert</span></span>
@@ -535,9 +536,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    [<span class="op">~,~</span>] <span class="op">=</span> <span class="va">system</span>(<span class="ss">'start C:\ProgramData\Anaconda3\python.exe D:\fmon-bpod\disconnect_gui.py'</span>)<span class="op">;</span> <span class="co">% Stop Bonsai</span></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">disp</span>(<span class="ss">'Running data output script...'</span>)<span class="op">;</span></span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">run</span>(<span class="ss">'D:\fmon-bpod\fmon_data_output_aw.m'</span>)<span class="op">;</span> <span class="co">% Run data output script</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-
 </section>
+</section>
+<section id="resources" class="level1">
+<h1>Resources</h1>
+<ul>
+<li><a href="https://sanworks.github.io/Bpod_Wiki/">Bpod Wiki</a></li>
+<li><a href="https://sanworks.io/forums/">Bpod Forums</a></li>
+<li><a href="https://github.com/sanworks/Bpod_Gen2">Bpod Github</a></li>
+<li><a href="https://sanworks.io/">Sanworks Website</a></li>
+</ul>
+
+
 </section>
 
 </main> <!-- /main -->

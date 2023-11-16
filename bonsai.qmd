@@ -6,25 +6,24 @@ title: "Bonsai"
 
 We have a developed a Bonsai protocol for the FMON rig that acquires video from a camera above the arena, then applies custom code to track mouse location and share this information with our Bpod protocols in real time.
 
-Bonsai is written in C# and has a relatively steep learning curve. That said, it is an excellent tool, offering high performance and an active [community](https://github.com/orgs/bonsai-rx/discussions/ 'Bonsai Discussion Board on Github').
+Bonsai is written in C# and has a relatively steep learning curve. That said, it is an excellent tool, offering high performance, active maintenence, and a vibrant [community](https://github.com/orgs/bonsai-rx/discussions/ 'Bonsai Discussion Board on Github') of researchers.
 
 ## FMON Bonsai Schematic
 Below is a simplified schematic describing the essential structure of the [bonsai-fmon.bonsai](https://github.com/nghess/fmon-bpod/tree/main/bonsai%20protocols) file.
 ```{mermaid}
 flowchart LR
 
-    Open_Bpod_COM_Port
+    X["Open Bpod COM Port"]
 
-    Camera_Capture --> Write_Video_Frame
-    Write_Video_Frame --> Get_Head_Position
-    Camera_Capture --> Get_Centroid_Position
-    Get_Head_Position --> Estimate_Nose_Position
-    Get_Centroid_Position --> Estimate_Nose_Position
+    A["Camera Capture"] --> B["Write Video Frame"]
+    B["Write Video Frame"] --> C["Get Head Position"]
+    A["Camera Capture"] --> E["Get Centroid Position"]
+    C["Get Head Position"] --> G["Estimate Nose Position"]
+    E["Get Centroid Position"] --> G["Estimate Nose Position"]
+    G["Estimate Nose Position"] --> H["Send APP Softcode to COM Port"]
+    G["Estimate Nose Position"] --> I["Write Bonsai TimeStamp"]
 
-    Estimate_Nose_Position --> Send_APP_Softcode_to_COM_Port
-    Estimate_Nose_Position --> Write_Bonsai_TimeStamp
-
-    NiDAQ_Capture --> Write_Binary_Data
+    Y["NiDAQ Capture"] --> Z["Write Binary Data"]
 
 
 ```
@@ -32,8 +31,8 @@ flowchart LR
 The actual Bonsai file consists of a larger series of image filters and [IronPython 2.7](https://ironpython.net/) code chunks, but the above schematic describes the overall file architecture and all the core tasks Bonsai performs: 
 
 * Capturing video
-* Estimating realtime mouse position
-* Sending mouse position to MATLAB
+* Estimating realtime subject position
+* Sending subject position to MATLAB
 * Writing a timestamp for each video frame
 * Recording [NiDAQ](https://www.ni.com/en-us/shop/model/usb-6001.html) data.
 
@@ -41,3 +40,7 @@ The actual Bonsai file consists of a larger series of image filters and [IronPyt
 Using bonsai-fmon.bonsai is as simple as opening Bonsai and loading the file. The file should not be started manually, as it started automatically by a Python script executed at the [beginning](bpod.qmd#initialize-bpod-and-start-bonsai) of each Bpod session.
 
 Researchers should not need to modify the bonsai-fmon.bonsai file, however it is useful to keep an eye on the video feed and realtime tracking. If a video preview doesn't automatically pop up, it can be accessed by right-clicking the farthest-right "Python Transform" node, selecting "Show Visualizer" and clicking "Bonsai.Vision.Design.IplImageVisualizer." This resulting visualizer displays realtime video as well as tracked points (centroid, head and nose) of the mouse and the choice boundaries of the task.
+
+## Resources
++ [bonsai-rx.com](https://bonsai-rx.org)
++ [Bonsai Github Discussions](https://github.com/orgs/bonsai-rx/discussions/)
