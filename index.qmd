@@ -7,6 +7,9 @@ Welcome to the documentation for Smear Lab's Freely Moving Olfactory Navigation 
 ![Back side of FMON Behavioral Rig](images/fmon_backend.jpg){fig-align="center"}
 
 ## Description
+The FMON behavioral rig produces a 2AFC task in which a subject mouse initiates a trial at the far end of the arena. Upon trial initiation odorized air flows from one of two olfactometers (or a mixture of both) and the subject must choose whether the odorized air is coming from the left or right side of the arena. The subject must choose the correct side in advance of reaching the odor source. Correct/incorrect trials are determined by which side of the arena the subject is on when it crosses a choice boundary.
+
+![FMON Arena with ports, odor source and choice boundary labeled](images/bonsai_video_preview_anno.jpg){fig-align="center"}
 
 The rig's hardware is controlled by a [Bpod](bpod.qmd) state machine running in MATLAB and receiving realtime input from [Bonsai](bonsai.qmd). All data related to trial state is recorded by Bpod, while all analog electrical signals (e.g. sniff signal) are recorded by Bonsai.
 
