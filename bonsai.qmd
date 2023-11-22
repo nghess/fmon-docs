@@ -41,6 +41,10 @@ Using bonsai-fmon.bonsai is as simple as opening Bonsai and loading the file. Th
 
 Researchers should not need to modify the bonsai-fmon.bonsai file, however it is useful to keep an eye on the video feed and realtime tracking. If a video preview doesn't automatically pop up, it can be accessed by right-clicking the farthest-right "Python Transform" node, selecting "Show Visualizer" and clicking "Bonsai.Vision.Design.IplImageVisualizer." This resulting visualizer displays realtime video as well as tracked points (centroid, head and nose) of the mouse and the choice boundaries of the task.
 
+![bonsai-fmon.bonsai workflow](images/bpod-fmon-serial.png){fig-align="center"}
+
+![Preview Generated from upper right Python Transform node.](images/bonsai_video_preview.jpg){fig-align="center"}
+
 ## Resources
 + [bonsai-rx.com](https://bonsai-rx.org)
 + [Bonsai Github Discussions](https://github.com/orgs/bonsai-rx/discussions/)

@@ -122,7 +122,14 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#description" id="toc-description" class="nav-link active" data-scroll-target="#description">Description</a></li>
+  <li><a href="#basic-workflow" id="toc-basic-workflow" class="nav-link" data-scroll-target="#basic-workflow">Basic Workflow</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -145,10 +152,30 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p>Welcome to the documentation for Smear Lab’s Freely Moving Olfactory Navigation (FMON) Rig. This documentation is intended to provide a detailed reference to the FMON Rig and the software that makes it work. You may navigate directly to topics using the navbar at the top of the page, or search for a specific topic or code snippet using the search button at the upper right corner.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/fmon_backend.jpg" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Back side of FMON Behavioral Rig</figcaption>
+</figure>
+</div>
+<section id="description" class="level2">
+<h2 class="anchored" data-anchor-id="description">Description</h2>
 <p>The rig’s hardware is controlled by a <a href="./bpod.html">Bpod</a> state machine running in MATLAB and receiving realtime input from <a href="./bonsai.html">Bonsai</a>. All data related to trial state is recorded by Bpod, while all analog electrical signals (e.g.&nbsp;sniff signal) are recorded by Bonsai.</p>
-<p>The rig can be run either directly from the Bpod Console, or using a custom <a href="./gui.html">GUI</a> that is tailored for research assistants to easily run specific FMON experiments. This documentation is fairly detailed, and is not intended for RA training, rather it is meant to serve as a reference for researchers who want to reproduce, repair or modify aspects of the FMON rig.</p>
+<p>The rig can be run either directly from the Bpod Console, or using a custom <a href="./gui.html">GUI</a> that is tailored for research assistants to easily run specific FMON experiments.</p>
+</section>
+<section id="basic-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="basic-workflow">Basic Workflow</h2>
+<p>This documentation covers the rig’s software and hardware, and is not intended to provide operator training, rather it is meant to serve as a reference for researchers who want to reproduce, repair or modify aspects of the FMON rig.</p>
+<p>That said, the documentation is organized to reflect the workflow taken by a operator using the rig:</p>
+<ol type="1">
+<li>Load the <a href="./gui.html">FMON GUI</a></li>
+<li>Load the <a href="./bonsai.html">Bonsai Workflow</a></li>
+<li>Start the <a href="./bpod.html">Bpod Protocol</a></li>
+<li>Analyze <a href="./data.html">data</a></li>
+</ol>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

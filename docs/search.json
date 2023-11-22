@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "FMON Documentation",
     "section": "",
-    "text": "Welcome to the documentation for Smear Lab’s Freely Moving Olfactory Navigation (FMON) Rig. This documentation is intended to provide a detailed reference to the FMON Rig and the software that makes it work. You may navigate directly to topics using the navbar at the top of the page, or search for a specific topic or code snippet using the search button at the upper right corner.\nThe rig’s hardware is controlled by a Bpod state machine running in MATLAB and receiving realtime input from Bonsai. All data related to trial state is recorded by Bpod, while all analog electrical signals (e.g. sniff signal) are recorded by Bonsai.\nThe rig can be run either directly from the Bpod Console, or using a custom GUI that is tailored for research assistants to easily run specific FMON experiments. This documentation is fairly detailed, and is not intended for RA training, rather it is meant to serve as a reference for researchers who want to reproduce, repair or modify aspects of the FMON rig."
+    "text": "Welcome to the documentation for Smear Lab’s Freely Moving Olfactory Navigation (FMON) Rig. This documentation is intended to provide a detailed reference to the FMON Rig and the software that makes it work. You may navigate directly to topics using the navbar at the top of the page, or search for a specific topic or code snippet using the search button at the upper right corner."
   },
   {
     "objectID": "hardware.html",
@@ -46,7 +46,7 @@
     "href": "bonsai.html#using-bonsai",
     "title": "Bonsai",
     "section": "Using Bonsai",
-    "text": "Using Bonsai\nUsing bonsai-fmon.bonsai is as simple as opening Bonsai and loading the file. The file should not be started manually, as it started automatically by a Python script executed at the beginning of each Bpod session.\nResearchers should not need to modify the bonsai-fmon.bonsai file, however it is useful to keep an eye on the video feed and realtime tracking. If a video preview doesn’t automatically pop up, it can be accessed by right-clicking the farthest-right “Python Transform” node, selecting “Show Visualizer” and clicking “Bonsai.Vision.Design.IplImageVisualizer.” This resulting visualizer displays realtime video as well as tracked points (centroid, head and nose) of the mouse and the choice boundaries of the task."
+    "text": "Using Bonsai\nUsing bonsai-fmon.bonsai is as simple as opening Bonsai and loading the file. The file should not be started manually, as it started automatically by a Python script executed at the beginning of each Bpod session.\nResearchers should not need to modify the bonsai-fmon.bonsai file, however it is useful to keep an eye on the video feed and realtime tracking. If a video preview doesn’t automatically pop up, it can be accessed by right-clicking the farthest-right “Python Transform” node, selecting “Show Visualizer” and clicking “Bonsai.Vision.Design.IplImageVisualizer.” This resulting visualizer displays realtime video as well as tracked points (centroid, head and nose) of the mouse and the choice boundaries of the task.\n\n\n\nbonsai-fmon.bonsai workflow\n\n\n\n\n\nPreview Generated from upper right Python Transform node."
   },
   {
     "objectID": "about.html",
@@ -137,6 +137,20 @@
     "href": "hardware.html#hardware",
     "title": "Electronics",
     "section": "Hardware",
-    "text": "Hardware\n\nBpod Finite State Machine r2 (1)\nBpod Port Interface (3)\nBpod Analogue Output Module (1)\nNational Instruments NiDAQ 6001 (2)\n[Final Valves]\n[Pinch Valves]\n[Olfactometer]\n[Mass Flow Controllers (2)]"
+    "text": "Hardware\n\nBpod Finite State Machine r2 (1)\nBpod Port Interface (3)\nBpod Analogue Output Module (1)\nNational Instruments NiDAQ 6001 (2)\nFinal Valves P/N SH360T042 (2)\nPinch Valves P/N 100P3MP12-02S (3)\nOlfactometer Manifold P/N 225T082 (4)\nMass Flow Controllers PN MC-1SLPM-D (4)"
+  },
+  {
+    "objectID": "index.html#description",
+    "href": "index.html#description",
+    "title": "FMON Documentation",
+    "section": "Description",
+    "text": "Description\nThe rig’s hardware is controlled by a Bpod state machine running in MATLAB and receiving realtime input from Bonsai. All data related to trial state is recorded by Bpod, while all analog electrical signals (e.g. sniff signal) are recorded by Bonsai.\nThe rig can be run either directly from the Bpod Console, or using a custom GUI that is tailored for research assistants to easily run specific FMON experiments."
+  },
+  {
+    "objectID": "index.html#basic-workflow",
+    "href": "index.html#basic-workflow",
+    "title": "FMON Documentation",
+    "section": "Basic Workflow",
+    "text": "Basic Workflow\nThis documentation covers the rig’s software and hardware, and is not intended to provide operator training, rather it is meant to serve as a reference for researchers who want to reproduce, repair or modify aspects of the FMON rig.\nThat said, the documentation is organized to reflect the workflow taken by a operator using the rig:\n\nLoad the FMON GUI\nLoad the Bonsai Workflow\nStart the Bpod Protocol\nAnalyze data"
   }
 ]
