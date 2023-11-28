@@ -6,7 +6,7 @@ This page includes all code used in the [fmon_task.m](https://github.com/nghess/
 
 The protocol is designed to be run in conjunction with [Bonsai](bonsai.qmd), which uses realtime video tracking to provide SoftCodes to Bpod over a serial connection. APP_SoftCode1 indicates that the mouse has crossed the choice boundary on the left side, APP_Softcode3 indicates that the mouse has crossed on the right, and APP_SoftCode2 indicates that the mouse has yet to cross the choice boundary.
 
-### State Machine Flow
+## State Machine Flow
 ```{mermaid}
 graph TD
     OdorantState --> OdorLeft
@@ -33,10 +33,10 @@ graph TD
     ITI --> OdorantState
 ```
 
-### MATLAB Code
+# MATLAB Code
 The following code chunks are an exact copy of [fmon_task.m](https://github.com/nghess/fmon-bpod/blob/main/bpod%20protocols/fmon_task/fmon_task.m), broken down into sections for ease of reference.
 
-### Initialize Bpod and Start Bonsai
+## Initialize Bpod and Start Bonsai
 Initializes the Bpod protocol definition and executes an external Python script to start Bonsai. The [Python script](https://github.com/nghess/fmon-bpod/blob/main/connect_gui.py) uses the pyautogui and pygetwindow libraries to start whichever file is loaded in Bonsai.
 ```matlab
 function fmon_task
@@ -51,7 +51,7 @@ S = BpodSystem.ProtocolSettings;
 java.lang.Thread.sleep(1000);
 ```
 
-### Session Timer
+## Session Timer
 MATLAB timer. Pulls from the "Session Length" field in "Session Info" tab of [FMON-GUI](gui.qmd).
 ```matlab
 %% Set Up Session Timer
@@ -82,7 +82,7 @@ t.TimerFcn = @(obj, event)timeUp(obj, event, session_duration);
 start(t);
 ```
 
-### Set up Reward Timings
+## Set up Reward Timings
 Sets water valve timings. Pulls valve timings from the "H2O" tab of the fmon_prefs.m [GUI](gui.qmd#h2o).
 ```matlab
 %% Set Reward amounts
@@ -107,7 +107,7 @@ PortOutDelay = .5;
 PokeTimer = 5;
 ```
 
-### Generate Trials
+## Generate Trials
 Code to generate trial sequence. Below code is for up to 200 trials total. Percentage of omission trials is defined in the fmon_prefs.m [GUI](gui.qmd). Additionally, code to ensure that no trial type is repeated more than 3 times in a row. Finally, code to construct the ITI list, with min and max ITI times (optionally) defined in the GUI.
 ```matlab
 %% Define trials
@@ -156,7 +156,7 @@ end
 iti_list = round((max_iti-min_iti) .* rand(1,length(TrialTypes)) + min_iti);
 ```
 
-### Trial Outcome Plots
+## Trial Outcome Plots
 Generates a visualization of trial type and outcome that updates after the completion of each trial.
 ```matlab
 BpodSystem.ProtocolFigures.OutcomePlotFig = figure('Position', [50 540 1000 250],'name','Outcome plot','numbertitle','off', 'MenuBar', 'none', 'Resize', 'off');
@@ -164,7 +164,7 @@ BpodSystem.GUIHandles.OutcomePlot = axes('Position', [.075 .3 .89 .6]);
 TrialTypeOutcomePlot(BpodSystem.GUIHandles.OutcomePlot,'init',TrialTypes);
 ```
 
-### Begin Trial Loop
+## Begin Trial Loop
 Beginning of for loop iterating over trials. Additionally, definitions of serial messages to be sent to olfactometer and final valves. The 'switch' control statement changes the definitions of StateOnInitPoke and OdorantState according to which TrialType is currently being executed.
 ```matlab
 %% Main trial loop
@@ -193,7 +193,7 @@ for currentTrial = 1:MaxTrials
 
 ```
 
-### States
+## States
 Definitions of each state in the experiment. The structure of each state is straightforward:
 
 * 'Timer' sets a timer in seconds ('Tup' means timer has expired)
@@ -291,7 +291,7 @@ Definitions of each state in the experiment. The structure of each state is stra
         'StateChangeConditions', {'Tup', 'exit'},...
         'OutputActions', {}); 
 ```
-### End Trial Loop
+## End Trial Loop
 Code to save data from the most recent trial. This code is Bpod boilerplate and should not be modified unless the user knows exactly what they are doing.
 ```matlab
 T = BpodTrialManager;
@@ -310,7 +310,7 @@ T = BpodTrialManager;
     end
 end
 ```
-### Update Outcome Plot
+## Update Outcome Plot
 This function updates the trial outcome plot while the session is running. Outcome plot displays trial types and whether mouse gave a correct or incorrect choice.
 ```matlab
 function UpdateOutcomePlot(TrialTypes, Data)
@@ -326,7 +326,7 @@ function UpdateOutcomePlot(TrialTypes, Data)
     TrialTypeOutcomePlot(BpodSystem.GUIHandles.OutcomePlot,'update',Data.nTrials+1,TrialTypes,Outcomes);
 ```
 
-### timeUp Function
+## timeUp Function
 When session duration, as defined in the "Session Info" tab of the [GUI](gui.qmd), expires, the timeUp function is executed. This function stops the Bpod protocol, stops Bonsai, then runs a data ouput [script](data.qmd) to summarize and save the session's data.
 ```matlab
 %% Execute when time is up:

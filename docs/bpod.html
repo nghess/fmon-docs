@@ -164,7 +164,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#state-machine-flow" id="toc-state-machine-flow" class="nav-link active" data-scroll-target="#state-machine-flow">State Machine Flow</a></li>
-  <li><a href="#matlab-code" id="toc-matlab-code" class="nav-link" data-scroll-target="#matlab-code">MATLAB Code</a></li>
+  <li><a href="#matlab-code" id="toc-matlab-code" class="nav-link" data-scroll-target="#matlab-code">MATLAB Code</a>
+  <ul class="collapse">
   <li><a href="#initialize-bpod-and-start-bonsai" id="toc-initialize-bpod-and-start-bonsai" class="nav-link" data-scroll-target="#initialize-bpod-and-start-bonsai">Initialize Bpod and Start Bonsai</a></li>
   <li><a href="#session-timer" id="toc-session-timer" class="nav-link" data-scroll-target="#session-timer">Session Timer</a></li>
   <li><a href="#set-up-reward-timings" id="toc-set-up-reward-timings" class="nav-link" data-scroll-target="#set-up-reward-timings">Set up Reward Timings</a></li>
@@ -175,7 +176,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#end-trial-loop" id="toc-end-trial-loop" class="nav-link" data-scroll-target="#end-trial-loop">End Trial Loop</a></li>
   <li><a href="#update-outcome-plot" id="toc-update-outcome-plot" class="nav-link" data-scroll-target="#update-outcome-plot">Update Outcome Plot</a></li>
   <li><a href="#timeup-function" id="toc-timeup-function" class="nav-link" data-scroll-target="#timeup-function">timeUp Function</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  </ul></li>
+  <li><a href="#bpod-resources" id="toc-bpod-resources" class="nav-link" data-scroll-target="#bpod-resources">Bpod Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -201,8 +203,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>This page includes all code used in the <a href="https://github.com/nghess/fmon-bpod/blob/main/bpod%20protocols/fmon_task/fmon_task.m">fmon_task.m</a> Bpod protocol for the 100-0 task, along with a graph describing the flow of the Bpod state machine.</p>
 <p>The protocol is designed to be run in conjunction with <a href="./bonsai.html">Bonsai</a>, which uses realtime video tracking to provide SoftCodes to Bpod over a serial connection. APP_SoftCode1 indicates that the mouse has crossed the choice boundary on the left side, APP_Softcode3 indicates that the mouse has crossed on the right, and APP_SoftCode2 indicates that the mouse has yet to cross the choice boundary.</p>
-<section id="state-machine-flow" class="level3">
-<h3 class="anchored" data-anchor-id="state-machine-flow">State Machine Flow</h3>
+<section id="state-machine-flow" class="level2">
+<h2 class="anchored" data-anchor-id="state-machine-flow">State Machine Flow</h2>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -236,12 +238,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="matlab-code" class="level3">
-<h3 class="anchored" data-anchor-id="matlab-code">MATLAB Code</h3>
+<section id="matlab-code" class="level1">
+<h1>MATLAB Code</h1>
 <p>The following code chunks are an exact copy of <a href="https://github.com/nghess/fmon-bpod/blob/main/bpod%20protocols/fmon_task/fmon_task.m">fmon_task.m</a>, broken down into sections for ease of reference.</p>
-</section>
-<section id="initialize-bpod-and-start-bonsai" class="level3">
-<h3 class="anchored" data-anchor-id="initialize-bpod-and-start-bonsai">Initialize Bpod and Start Bonsai</h3>
+<section id="initialize-bpod-and-start-bonsai" class="level2">
+<h2 class="anchored" data-anchor-id="initialize-bpod-and-start-bonsai">Initialize Bpod and Start Bonsai</h2>
 <p>Initializes the Bpod protocol definition and executes an external Python script to start Bonsai. The <a href="https://github.com/nghess/fmon-bpod/blob/main/connect_gui.py">Python script</a> uses the pyautogui and pygetwindow libraries to start whichever file is loaded in Bonsai.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">fmon_task</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">%% Initialize Bpod</span></span>
@@ -254,8 +255,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">% Wait for Bonsai to start</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="va">java</span>.<span class="va">lang</span>.<span class="va">Thread</span>.<span class="va">sleep</span>(<span class="fl">1000</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="session-timer" class="level3">
-<h3 class="anchored" data-anchor-id="session-timer">Session Timer</h3>
+<section id="session-timer" class="level2">
+<h2 class="anchored" data-anchor-id="session-timer">Session Timer</h2>
 <p>MATLAB timer. Pulls from the “Session Length” field in “Session Info” tab of <a href="./gui.html">FMON-GUI</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">%% Set Up Session Timer</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">% Get duration from GUI, or use default of 40 minutes.</span></span>
@@ -284,8 +285,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="va">start</span>(<span class="va">t</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="set-up-reward-timings" class="level3">
-<h3 class="anchored" data-anchor-id="set-up-reward-timings">Set up Reward Timings</h3>
+<section id="set-up-reward-timings" class="level2">
+<h2 class="anchored" data-anchor-id="set-up-reward-timings">Set up Reward Timings</h2>
 <p>Sets water valve timings. Pulls valve timings from the “H2O” tab of the fmon_prefs.m <a href="./gui.html#h2o">GUI</a>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">%% Set Reward amounts</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">% Read variables from workspace, supplied by fmon_prefs.m GUI.</span></span>
@@ -308,8 +309,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">% Time to wait for poke after decision. On timeout, ITI begins.</span></span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="va">PokeTimer</span> <span class="op">=</span> <span class="fl">5</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="generate-trials" class="level3">
-<h3 class="anchored" data-anchor-id="generate-trials">Generate Trials</h3>
+<section id="generate-trials" class="level2">
+<h2 class="anchored" data-anchor-id="generate-trials">Generate Trials</h2>
 <p>Code to generate trial sequence. Below code is for up to 200 trials total. Percentage of omission trials is defined in the fmon_prefs.m <a href="./gui.html">GUI</a>. Additionally, code to ensure that no trial type is repeated more than 3 times in a row. Finally, code to construct the ITI list, with min and max ITI times (optionally) defined in the GUI.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">%% Define trials</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="va">nLeftTrials</span> <span class="op">=</span> <span class="fl">100</span><span class="op">;</span></span>
@@ -356,15 +357,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="co">% Create ITI list</span></span>
 <span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="va">iti_list</span> <span class="op">=</span> <span class="va">round</span>((<span class="va">max_iti</span><span class="op">-</span><span class="va">min_iti</span>) <span class="op">.*</span> <span class="va">rand</span>(<span class="fl">1</span><span class="op">,</span><span class="va">length</span>(<span class="va">TrialTypes</span>)) <span class="op">+</span> <span class="va">min_iti</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="trial-outcome-plots" class="level3">
-<h3 class="anchored" data-anchor-id="trial-outcome-plots">Trial Outcome Plots</h3>
+<section id="trial-outcome-plots" class="level2">
+<h2 class="anchored" data-anchor-id="trial-outcome-plots">Trial Outcome Plots</h2>
 <p>Generates a visualization of trial type and outcome that updates after the completion of each trial.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">BpodSystem</span>.<span class="va">ProtocolFigures</span>.<span class="va">OutcomePlotFig</span> <span class="op">=</span> <span class="va">figure</span>(<span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">50</span> <span class="fl">540</span> <span class="fl">1000</span> <span class="fl">250</span>]<span class="op">,</span><span class="ss">'name'</span><span class="op">,</span><span class="ss">'Outcome plot'</span><span class="op">,</span><span class="ss">'numbertitle'</span><span class="op">,</span><span class="ss">'off'</span><span class="op">,</span> <span class="ss">'MenuBar'</span><span class="op">,</span> <span class="ss">'none'</span><span class="op">,</span> <span class="ss">'Resize'</span><span class="op">,</span> <span class="ss">'off'</span>)<span class="op">;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="va">BpodSystem</span>.<span class="va">GUIHandles</span>.<span class="va">OutcomePlot</span> <span class="op">=</span> <span class="va">axes</span>(<span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">.075</span> <span class="fl">.3</span> <span class="fl">.89</span> <span class="fl">.6</span>])<span class="op">;</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="va">TrialTypeOutcomePlot</span>(<span class="va">BpodSystem</span>.<span class="va">GUIHandles</span>.<span class="va">OutcomePlot</span><span class="op">,</span><span class="ss">'init'</span><span class="op">,</span><span class="va">TrialTypes</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="begin-trial-loop" class="level3">
-<h3 class="anchored" data-anchor-id="begin-trial-loop">Begin Trial Loop</h3>
+<section id="begin-trial-loop" class="level2">
+<h2 class="anchored" data-anchor-id="begin-trial-loop">Begin Trial Loop</h2>
 <p>Beginning of for loop iterating over trials. Additionally, definitions of serial messages to be sent to olfactometer and final valves. The ‘switch’ control statement changes the definitions of StateOnInitPoke and OdorantState according to which TrialType is currently being executed.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">%% Main trial loop</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">currentTrial</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">MaxTrials</span></span>
@@ -390,8 +391,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>            <span class="va">OdorantState</span> <span class="op">=</span> <span class="ss">'OdorOmitRight'</span><span class="op">;</span></span>
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="states" class="level3">
-<h3 class="anchored" data-anchor-id="states">States</h3>
+<section id="states" class="level2">
+<h2 class="anchored" data-anchor-id="states">States</h2>
 <p>Definitions of each state in the experiment. The structure of each state is straightforward:</p>
 <ul>
 <li>‘Timer’ sets a timer in seconds (‘Tup’ means timer has expired)</li>
@@ -490,8 +491,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>        <span class="ss">'StateChangeConditions'</span><span class="op">,</span> {<span class="ss">'Tup'</span><span class="op">,</span> <span class="ss">'exit'</span>}<span class="op">,...</span></span>
 <span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>        <span class="ss">'OutputActions'</span><span class="op">,</span> {})<span class="op">;</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="end-trial-loop" class="level3">
-<h3 class="anchored" data-anchor-id="end-trial-loop">End Trial Loop</h3>
+<section id="end-trial-loop" class="level2">
+<h2 class="anchored" data-anchor-id="end-trial-loop">End Trial Loop</h2>
 <p>Code to save data from the most recent trial. This code is Bpod boilerplate and should not be modified unless the user knows exactly what they are doing.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="va">T</span> <span class="op">=</span> <span class="va">BpodTrialManager</span><span class="op">;</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">T</span>.<span class="va">startTrial</span>(<span class="va">sma</span>)</span>
@@ -509,8 +510,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
 <span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="update-outcome-plot" class="level3">
-<h3 class="anchored" data-anchor-id="update-outcome-plot">Update Outcome Plot</h3>
+<section id="update-outcome-plot" class="level2">
+<h2 class="anchored" data-anchor-id="update-outcome-plot">Update Outcome Plot</h2>
 <p>This function updates the trial outcome plot while the session is running. Outcome plot displays trial types and whether mouse gave a correct or incorrect choice.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">UpdateOutcomePlot</span>(<span class="va">TrialTypes</span><span class="op">,</span> <span class="va">Data</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">global</span> <span class="va">BpodSystem</span></span>
@@ -524,8 +525,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="va">TrialTypeOutcomePlot</span>(<span class="va">BpodSystem</span>.<span class="va">GUIHandles</span>.<span class="va">OutcomePlot</span><span class="op">,</span><span class="ss">'update'</span><span class="op">,</span><span class="va">Data</span>.<span class="va">nTrials</span><span class="op">+</span><span class="fl">1</span><span class="op">,</span><span class="va">TrialTypes</span><span class="op">,</span><span class="va">Outcomes</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="timeup-function" class="level3">
-<h3 class="anchored" data-anchor-id="timeup-function">timeUp Function</h3>
+<section id="timeup-function" class="level2">
+<h2 class="anchored" data-anchor-id="timeup-function">timeUp Function</h2>
 <p>When session duration, as defined in the “Session Info” tab of the <a href="./gui.html">GUI</a>, expires, the timeUp function is executed. This function stops the Bpod protocol, stops Bonsai, then runs a data ouput <a href="./data.html">script</a> to summarize and save the session’s data.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">%% Execute when time is up:</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">timeUp</span>(<span class="va">obj</span><span class="op">,</span> <span class="va">event</span><span class="op">,</span> <span class="va">duration</span>)</span>
@@ -536,8 +537,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">disp</span>(<span class="ss">'Running data output script...'</span>)<span class="op">;</span></span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">run</span>(<span class="ss">'D:\fmon-bpod\fmon_data_output_aw.m'</span>)<span class="op">;</span> <span class="co">% Run data output script</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="resources" class="level1">
-<h1>Resources</h1>
+</section>
+<section id="bpod-resources" class="level1">
+<h1>Bpod Resources</h1>
 <ul>
 <li><a href="https://sanworks.github.io/Bpod_Wiki/">Bpod Wiki</a></li>
 <li><a href="https://sanworks.io/forums/">Bpod Forums</a></li>
