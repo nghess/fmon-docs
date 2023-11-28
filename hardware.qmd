@@ -48,7 +48,7 @@ flowchart LR
 
 ```
 
-## Hardware
+## Hardware List
 * [Bpod Finite State Machine r2 (1)](https://sanworks.io/shop/viewproduct?productID=1024)
 * [Bpod Port Interface (3)](https://sanworks.io/shop/viewproduct?productID=1008)
 * [Bpod Analogue Output Module (1)](https://sanworks.io/shop/viewproduct?productID=1013)

@@ -33,7 +33,7 @@ graph TD
     ITI --> OdorantState
 ```
 
-# MATLAB Code
+### MATLAB Code
 The following code chunks are an exact copy of [fmon_task.m](https://github.com/nghess/fmon-bpod/blob/main/bpod%20protocols/fmon_task/fmon_task.m), broken down into sections for ease of reference.
 
 ### Initialize Bpod and Start Bonsai
@@ -338,7 +338,7 @@ function timeUp(obj, event, duration)
     disp('Running data output script...');
     run('D:\fmon-bpod\fmon_data_output_aw.m'); % Run data output script
 ```
-# Resources
+# Bpod Resources
 + [Bpod Wiki](https://sanworks.github.io/Bpod_Wiki/)
 + [Bpod Forums](https://sanworks.io/forums/)
 + [Bpod Github](https://github.com/sanworks/Bpod_Gen2)

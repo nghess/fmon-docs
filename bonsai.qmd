@@ -45,6 +45,6 @@ Researchers should not need to modify the bonsai-fmon.bonsai file, however it is
 
 ![Preview Generated from upper right Python Transform node.](images/bonsai_video_preview.jpg){fig-align="center"}
 
-## Resources
+## Bonsai Resources
 + [bonsai-rx.com](https://bonsai-rx.org)
 + [Bonsai Github Discussions](https://github.com/orgs/bonsai-rx/discussions/)

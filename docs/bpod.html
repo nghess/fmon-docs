@@ -164,8 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#state-machine-flow" id="toc-state-machine-flow" class="nav-link active" data-scroll-target="#state-machine-flow">State Machine Flow</a></li>
-  <li><a href="#matlab-code" id="toc-matlab-code" class="nav-link" data-scroll-target="#matlab-code">MATLAB Code</a>
-  <ul class="collapse">
+  <li><a href="#matlab-code" id="toc-matlab-code" class="nav-link" data-scroll-target="#matlab-code">MATLAB Code</a></li>
   <li><a href="#initialize-bpod-and-start-bonsai" id="toc-initialize-bpod-and-start-bonsai" class="nav-link" data-scroll-target="#initialize-bpod-and-start-bonsai">Initialize Bpod and Start Bonsai</a></li>
   <li><a href="#session-timer" id="toc-session-timer" class="nav-link" data-scroll-target="#session-timer">Session Timer</a></li>
   <li><a href="#set-up-reward-timings" id="toc-set-up-reward-timings" class="nav-link" data-scroll-target="#set-up-reward-timings">Set up Reward Timings</a></li>
@@ -176,7 +175,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#end-trial-loop" id="toc-end-trial-loop" class="nav-link" data-scroll-target="#end-trial-loop">End Trial Loop</a></li>
   <li><a href="#update-outcome-plot" id="toc-update-outcome-plot" class="nav-link" data-scroll-target="#update-outcome-plot">Update Outcome Plot</a></li>
   <li><a href="#timeup-function" id="toc-timeup-function" class="nav-link" data-scroll-target="#timeup-function">timeUp Function</a></li>
-  </ul></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul>
 </nav>
@@ -238,9 +236,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="matlab-code" class="level1">
-<h1>MATLAB Code</h1>
+<section id="matlab-code" class="level3">
+<h3 class="anchored" data-anchor-id="matlab-code">MATLAB Code</h3>
 <p>The following code chunks are an exact copy of <a href="https://github.com/nghess/fmon-bpod/blob/main/bpod%20protocols/fmon_task/fmon_task.m">fmon_task.m</a>, broken down into sections for ease of reference.</p>
+</section>
 <section id="initialize-bpod-and-start-bonsai" class="level3">
 <h3 class="anchored" data-anchor-id="initialize-bpod-and-start-bonsai">Initialize Bpod and Start Bonsai</h3>
 <p>Initializes the Bpod protocol definition and executes an external Python script to start Bonsai. The <a href="https://github.com/nghess/fmon-bpod/blob/main/connect_gui.py">Python script</a> uses the pyautogui and pygetwindow libraries to start whichever file is loaded in Bonsai.</p>
@@ -536,7 +535,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    [<span class="op">~,~</span>] <span class="op">=</span> <span class="va">system</span>(<span class="ss">'start C:\ProgramData\Anaconda3\python.exe D:\fmon-bpod\disconnect_gui.py'</span>)<span class="op">;</span> <span class="co">% Stop Bonsai</span></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">disp</span>(<span class="ss">'Running data output script...'</span>)<span class="op">;</span></span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">run</span>(<span class="ss">'D:\fmon-bpod\fmon_data_output_aw.m'</span>)<span class="op">;</span> <span class="co">% Run data output script</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
 </section>
 <section id="resources" class="level1">
 <h1>Resources</h1>
